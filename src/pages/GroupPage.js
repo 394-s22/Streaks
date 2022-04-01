@@ -10,7 +10,10 @@ function GroupPage({ group, users, current_user }) {
 	const [selfCheckIn, setSelfCheckIn] = useState(false);
 
 	const handleCheckIn = () => {
+		console.log("before checked in", group.progress[0].users)
 		setSelfCheckIn(!selfCheckIn);
+		group.progress[0].users.push(current_user)
+		console.log("checked in", group.progress[0].users)
 	};
 
 	const handleOpen = () => {

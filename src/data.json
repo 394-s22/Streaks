@@ -1,0 +1,55 @@
+{
+	"groups": [
+		{
+			"description": "This is the description where you run everyday",
+			"duration": 30,
+			"group_id": 0,
+			"group_name": "Cool Runners",
+			"group_password": "password_secret",
+			"habit": "Running everyday",
+			"members": [2, 3],
+			"pay_in_amt": 30.0,
+			"progress": [{
+				"date": "2022-04-01",
+				"users": [3]
+			}],
+			"public_pot": 0,
+			"start_date": "2022-04-30"
+		}
+	],
+	"users": [
+		{
+			"cellphone_number": "462-618-8939",
+			"email": "john@gmail.com",
+			"group_info": [{
+				"deposit": 28.5,
+				"group_id": 0,
+				"payout": 2.5
+			}],
+			"name": "John Doe",
+			"user_id": 2
+		},
+		{
+			"cellphone_number": "472-968-0939",
+			"email": "jane@gmail.com",
+			"group_info": [{
+				"deposit": 28.5,
+				"group_id": 0,
+				"payout": 2.5
+			}],
+			"name": "Jane Doe",
+			"user_id": 3
+		},
+		{
+			"cellphone_number": "423-634-5683",
+			"email": "test@gmail.com",
+			"group_info": [{
+				"deposit": 28.5,
+				"group_id": 0,
+				"payout": 2.5
+			}],
+			"name": "Test Person",
+			"user_id": 200
+		}
+	]
+}

@@ -3,61 +3,13 @@ import "./App.css";
 import "./pages/GroupPage";
 import GroupPage from "./pages/GroupPage";
 
-let group_object_tester = {
-	group_id: 1,
-	members: [2, 3],
-	group_name: "Cool Runners",
-	habit: "Running everyday",
-	description: "This is the description where you run everyday",
-	pay_in_amt: 30.0,
-	public_pot: 0,
-	duration: 30,
-	start_date: Date(),
-	group_password: "password_secret",
-};
-
-let user1 = {
-	user_id: 2,
-	name: "John Rob",
-	email: "john@gmail.com",
-	cellphone_number: "462-618-8939",
-	group_info: [{
-		info_id: 5,
-		group_id: 1,
-		payout: 20.0,
-		depost: 30.0
-	
-	}],
-	completed_today: false,
-};
-
-let user2 = {
-	user_id: 3,
-	name: "Bloody Mary",
-	email: "bMary@gmail.com",
-	cellphone_number: "472-968-0939",
-	group_info: [{
-		info_id: 5,
-		group_id: 1,
-		payout: 20.0,
-		depost: 30.0
-	
-	}],
-	completed_today: true,
-};
-
-let users = [user1, user2];
-
-let currentUser = {
-	user_id: 2,
-};
-
-
+let data = require('./data.json')
+console.log(data)
 
 function App() {
 	return (
 		<div className="App">
-			<GroupPage group={group_object_tester} users={users} current_user={currentUser} />
+			<GroupPage group={data.groups[0]} users={data.users} current_user={2} />
 		</div>
 	);
 }
