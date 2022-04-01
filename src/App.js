@@ -36,10 +36,14 @@ let user2 = {
 
 let users = [user1, user2];
 
+let currentUser = {
+	user_id: 2,
+};
+
 function App() {
 	return (
 		<div className="App">
-			<GroupPage group={group_object_tester} users={users} />
+			<GroupPage group={group_object_tester} users={users} current_user={currentUser} />
 		</div>
 	);
 }

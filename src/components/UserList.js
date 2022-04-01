@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import { Checkbox, Typography, IconButton } from "@mui/material";
 
-function UserList({ users, group_users }) {
+function UserList({ users, group_users, current_user }) {
 	let user_data = [];
 	console.log(group_users);
 	for (const user_id in group_users) {
@@ -18,7 +18,9 @@ function UserList({ users, group_users }) {
 			<Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
 				{user_data.map((user) => (
 					<Box display="flex" flexDirection="row" justifyContent="center" alignItems="center">
-						<Typography>{user.name}</Typography>
+						<Typography>
+							{user.name} {user.user_id === current_user.user_id ? "(me)" : ""}
+						</Typography>
 						<Checkbox checked={user.completed_today} sx={{ mr: 5 }} />
 						<IconButton>👏</IconButton>
 					</Box>
