@@ -21,7 +21,13 @@ let user1 = {
 	name: "John Rob",
 	email: "john@gmail.com",
 	cellphone_number: "462-618-8939",
-	group_info: [],
+	group_info: [{
+		info_id: 5,
+		group_id: 1,
+		payout: 20.0,
+		depost: 30.0
+	
+	}],
 	completed_today: false,
 };
 
@@ -30,7 +36,13 @@ let user2 = {
 	name: "Bloody Mary",
 	email: "bMary@gmail.com",
 	cellphone_number: "472-968-0939",
-	group_info: [],
+	group_info: [{
+		info_id: 5,
+		group_id: 1,
+		payout: 20.0,
+		depost: 30.0
+	
+	}],
 	completed_today: true,
 };
 
@@ -39,6 +51,8 @@ let users = [user1, user2];
 let currentUser = {
 	user_id: 2,
 };
+
+
 
 function App() {
 	return (
