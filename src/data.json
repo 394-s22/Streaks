@@ -9,16 +9,11 @@
 			"habit": "Running everyday",
 			"members": [2, 3],
 			"pay_in_amt": 30.0,
-			"progress": [{
-				"date": "2022-03-31",
-				"users": [2, 3]
-			}, {
-				"date": "2022-04-01",
-				"users": [3]
-			}, {
-				"date": "2022-04-02",
-				"users": []
-			}],
+			"progress": {
+				"2022-03-31": { "users": [2, 3]},
+				"2022-04-01":{ "users": [3] },
+				"2022-04-02":{ "users": [] }
+			},
 			"public_pot": 0,
 			"start_date": "2022-04-30"
 		}
