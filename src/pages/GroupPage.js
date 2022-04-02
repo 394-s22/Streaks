@@ -35,7 +35,7 @@ function GroupPage({ group, users, current_user }) {
 
 				<Button onClick={handleOpen}>Info</Button>
 				<InfoModal handleClose={handleClose} open={open} group={group} />
-				<UserList group_users={group.members} users={users} current_user={current_user} />
+				<UserList group_users={group.members} users={users} current_user={current_user}/>
 				{!selfCheckIn ? (
 					<Button variant="contained" onClick={handleCheckIn}>
 						Check In

@@ -1,14 +1,15 @@
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import styled from "@emotion/styled";
-import Box from "@mui/material/Box";
+
+
+import User from './User.js';
+
 
 import { Checkbox, Typography, IconButton } from "@mui/material";
 
 // import { useData } from '../utilities/firebase.js';
 
-function UserList({group_users, users, current_user }) {
+function UserList({group_users, users, current_user, checkin }) {
 	// let user_data = [];
 	// let group_data = [];
 	// let group_users = [];
@@ -37,23 +38,7 @@ function UserList({group_users, users, current_user }) {
 		<div>
 			<Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
 				{users.map((user) => (
-					<Box display="flex" flexDirection="row" justifyContent="center" alignItems="center">
-						<Box>
-							<Typography>
-								{user.name} {user.user_id === current_user? "(me)" : ""}
-							</Typography>
-							<Typography>
-								checked
-							</Typography>
-							
-							
-							
-						</Box>
-						<Checkbox checked={user.completed_today} sx={{ mr: 5 }} />
-						
-						
-						<IconButton>👏</IconButton>
-					</Box>
+					<User user={user} current_user={current_user}/>
 				))}
 			</Stack>
 		</div>
