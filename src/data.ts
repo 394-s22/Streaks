@@ -11,6 +11,7 @@ const groups: Group= {
     memberIds: ["2", "3", "4"],
     payInAmt: 30.0,
     progress: {
+      "2022-03-30": { userIdsWhoCheckedIn: ["2", "3", "4"]},
       "2022-03-31": { userIdsWhoCheckedIn: ["2", "3"] },
       "2022-04-01": { userIdsWhoCheckedIn: ["3"] },
       "2022-04-02": { userIdsWhoCheckedIn: [] },
@@ -21,7 +22,7 @@ const groups: Group= {
       "4": 2,
     },
     publicPot: 0,
-    startDate: "2022-04-30",
+    startDate: "2022-03-30",
   }
 }
 
