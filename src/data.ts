@@ -20,6 +20,7 @@ const groups: Group = {
       "2": 1,
       "3": 3,
       "4": 2,
+      "5": 0,
     },
     publicPot: 0,
     startDate: "2022-03-30",
@@ -65,6 +66,19 @@ const users: User = {
     },
     name: "Test Person",
     id: "4",
+  },
+  "5": {
+    cellphoneNumber: "423-634-5683",
+    email: "hello@gmail.com",
+    groupInfo: {
+      "0": {
+        deposit: 27.5,
+        groupId: "0",
+        payout: 2.5,
+      },
+    },
+    name: "Hello world",
+    id: "5",
   },
 };
 

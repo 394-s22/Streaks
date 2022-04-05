@@ -51,7 +51,9 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
         width="100%"
       >
         <Box display="flex" flexDirection="row" alignItems="center">
-          <Box sx={{ p: 1 }}>{position <= 2 ? medals[position] : <></>}</Box>
+          <Box sx={{ p: 1 }}>
+            {position <= 2 ? medals[position] : <Box width={30}></Box>}
+          </Box>
           <Box textAlign="left">
             <Typography
               display="flex"
