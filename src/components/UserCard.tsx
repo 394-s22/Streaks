@@ -38,26 +38,34 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
     <Box
       display="flex"
       flexDirection="row"
-      justifyContent="center"
+      justifyContent="flex-start"
       alignItems="center"
+      maxWidth="600"
     >
-      <Box display="flex" flexDirection="row">
-        <Box>{position <= 2 ? medals[position] : <></>}</Box>
+      <Box display="flex" 
+           flexDirection="row" 
+           alignItems="center" 
+           justifyContent="space-between" 
+           width="600px">
+        <Box display="flex" flexDirection="row" alignItems="center">
+        <Box sx={{ p: 1 }}>{position <= 2 ? medals[position] : <></>}</Box>
         <Box textAlign="left">
-          <Typography>
+          <Typography display="flex" 
+                      justifyContent="flex-start" 
+                      alignItems="center"
+                      sx={{ fontWeight: 600}}>
             {user.name} {user.id === currentUser ? "(me)" : ""}
-          </Typography>
-          <Typography>Streak: {group.streaks[user.id]} days.</Typography>
-        </Box>
-      </Box>
-
-      {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
-        <CheckCircleIcon color="success" />
-      ) : (
-        <RadioButtonUncheckedIcon />
+            {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
+              <CheckCircleIcon color="success" sx={{ml: 1, fontSize: 20}}/>
+             ) : (
+              <RadioButtonUncheckedIcon sx={{ml: 1, fontSize: 20}}/>
       )}
-
-      <IconButton>👏</IconButton>
+          </Typography>
+          <Typography>Streak: {group.streaks[user.id]} day{group.streaks[user.id] == 1 ? "" : "s"}</Typography>
+        </Box>
+        </Box>
+        <IconButton>👏</IconButton>
+      </Box>
     </Box>
   );
 };

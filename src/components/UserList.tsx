@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import { Group, GroupMetaData, User } from "../lib/types";
@@ -23,12 +23,15 @@ const UserList: React.FunctionComponent<UserListProps> = ({
   });
 
   return (
-    <div>
+    <Box
+      display="flex"
+      justifyContent="center">
       <Stack
         direction="column"
         justifyContent="center"
-        alignItems="center"
+        alignItems="flex-start"
         spacing={2}
+        maxWidth="600"
       >
         {sorted.map((pair, index) => (
           <UserCard
@@ -41,7 +44,7 @@ const UserList: React.FunctionComponent<UserListProps> = ({
           />
         ))}
       </Stack>
-    </div>
+    </Box>
   );
 };
 
