@@ -16,9 +16,9 @@ const groups: Group= {
       "2022-04-02": { userIdsWhoCheckedIn: [] },
     },
     streaks: {
-      "2": 0,
-      "3": 2,
-      "4": 0,
+      "2": 1,
+      "3": 3,
+      "4": 2,
     },
     publicPot: 0,
     startDate: "2022-04-30",

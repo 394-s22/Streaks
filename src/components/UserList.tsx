@@ -17,6 +17,14 @@ const UserList: React.FunctionComponent<UserListProps> = ({
   currentUser,
   date,
 }) => {
+
+ let sorted = Object.entries(group.streaks).sort((a,b) => {
+   return b[1]-a[1]
+ })
+
+
+
+
   return (
     <div>
       <Stack
@@ -25,10 +33,10 @@ const UserList: React.FunctionComponent<UserListProps> = ({
         alignItems="center"
         spacing={2}
       >
-        {Object.values(users).map((user) => (
+        {sorted.map((pair) => (
           <UserCard
-            key={user.id}
-            user={user}
+            key={pair[0]}
+            user={users[pair[0]]}
             currentUser={currentUser}
             group={group}
             date={date}
