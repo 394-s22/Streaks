@@ -70,9 +70,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
             Check In
           </Button>
         ) : (
-          <Typography>
-            You have checked in today 🙌. $x has been added to your payout.
-          </Typography>
+          <Typography>You have checked in today 🙌.</Typography>
         )}
       </Box>
 
@@ -86,10 +84,6 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           maxWidth={600}
         >
           <Typography>{group.memberIds.length} members.</Typography>
-          <Typography>
-            Your Payout: $
-            {users[currentUser].groupInfo[group.groupId].payout.toFixed(2)}
-          </Typography>
           <Typography>${group.publicPot} in the pot.</Typography>
         </Box>
       </Box>
