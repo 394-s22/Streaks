@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button } from "@mui/material";
+import { Box, Button, AppBar, Toolbar, IconButton,  } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import InfoModal from "../components/InfoModal";
 import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
@@ -59,15 +60,30 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
       flexDirection="column"
       height="100%"
     >
+      <AppBar position="static" color="secondary">
+        <Toolbar variant="dense">
+          {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton> */}
+          <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
+            <Typography variant="h6" color="inherit" component="div">
+              Streaks
+            </Typography>
+            <Typography>
+              {(new Date()).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+            </Typography>
+          </Box>
+        </Toolbar>
+      </AppBar>
       <Box>
         <Typography variant="h2" gutterBottom component="div">
           {group.groupName}
         </Typography>
-        <Typography variant="h6" gutterBottom component="div">
+        <Typography variant="h4" gutterBottom component="div">
           {group.habit}
         </Typography>
 
-        <Button onClick={handleOpen}>Info</Button>
+        <Button onClick={handleOpen} color="secondary">Info</Button>
         <InfoModal handleClose={handleClose} isOpen={open} group={group} />
         <UserList
           group={group}
@@ -76,7 +92,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           date={date}
         />
         {!selfCheckIn ? (
-          <Button variant="contained" onClick={handleCheckIn}>
+          <Button variant="contained" color="secondary" onClick={handleCheckIn} sx={{ m: 3.75 }}>
             Check In
           </Button>
         ) : (
@@ -87,7 +103,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
         )}
       </Box>
 
-      <Box>
+      <Box sx={{ bgcolor: "#aaa"}}>
         <Box
           margin="auto"
           display="flex"

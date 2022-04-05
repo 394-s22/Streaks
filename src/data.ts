@@ -8,12 +8,13 @@ const groups: Group= {
     groupName: "Cool Runners",
     groupPassword: "password_secret",
     habit: "Running everyday",
-    memberIds: ["2", "3"],
+    memberIds: ["2", "3", "4"],
     payInAmt: 30.0,
     progress: {
-      "2022-03-31": { userIdsWhoCheckedIn: ["2", "3"] },
-      "2022-04-01": { userIdsWhoCheckedIn: ["3"] },
-      "2022-04-02": { userIdsWhoCheckedIn: [] },
+      "2022-03-30": { userIdsWhoCheckedIn: []},
+      "2022-03-31": { userIdsWhoCheckedIn: ["3"] },
+      "2022-04-01": { userIdsWhoCheckedIn: ["3", "4"] },
+      "2022-04-02": { userIdsWhoCheckedIn: ["2", "3", "4"] },
     },
     streaks: {
       "2": 1,
@@ -21,7 +22,7 @@ const groups: Group= {
       "4": 2,
     },
     publicPot: 0,
-    startDate: "2022-04-30",
+    startDate: "2022-03-30",
   }
 }
 
