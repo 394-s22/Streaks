@@ -14,7 +14,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 800,
+  width: "70%",
+  maxWidth: 600,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -37,16 +38,16 @@ const InfoModal: React.FunctionComponent<InfoModalProps> = ({
   return (
     <div>
       <Modal
-        hideBackdrop
         open={isOpen}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
+        sx={{ width: "100%" }}
       >
         <Box sx={{ ...style }}>
           <h2 id="child-modal-title">Info</h2>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table aria-label="simple table">
               <TableBody>
                 <TableRow
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

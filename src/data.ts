@@ -1,8 +1,8 @@
 import { Group, User } from "./lib/types";
 
-const groups: Group= {
-  '0': {
-    description: "This is the description where you run everyday",
+const groups: Group = {
+  "0": {
+    description: "A group to get better at running.",
     duration: 30,
     groupId: "0",
     groupName: "Cool Runners",
@@ -11,7 +11,7 @@ const groups: Group= {
     memberIds: ["2", "3", "4"],
     payInAmt: 30.0,
     progress: {
-      "2022-03-30": { userIdsWhoCheckedIn: []},
+      "2022-03-30": { userIdsWhoCheckedIn: [] },
       "2022-03-31": { userIdsWhoCheckedIn: ["3"] },
       "2022-04-01": { userIdsWhoCheckedIn: ["3", "4"] },
       "2022-04-02": { userIdsWhoCheckedIn: ["2", "3", "4"] },
@@ -23,8 +23,8 @@ const groups: Group= {
     },
     publicPot: 0,
     startDate: "2022-03-30",
-  }
-}
+  },
+};
 
 const users: User = {
   "2": {
