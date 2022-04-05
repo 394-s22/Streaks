@@ -1,4 +1,6 @@
-export type Group = {
+export type Group =  Record<string, GroupMetaData>;
+
+export type GroupMetaData = {
   description: string;
   duration: number;
   groupId: string;

@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import React from "react";
-import { Group } from "../lib/types";
+import { Group, GroupMetaData } from "../lib/types";
 
 const style = {
   position: "absolute",
@@ -26,7 +26,7 @@ const style = {
 interface InfoModalProps {
   handleClose: () => void;
   isOpen: boolean;
-  group: Group;
+  group: GroupMetaData;
 }
 
 const InfoModal: React.FunctionComponent<InfoModalProps> = ({

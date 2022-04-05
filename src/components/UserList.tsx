@@ -1,10 +1,11 @@
 import Stack from "@mui/material/Stack";
 import React from "react";
-import { Group, User } from "../lib/types";
+import { Group, GroupMetaData, User } from "../lib/types";
 import UserCard from "./UserCard";
 
 interface UserListProps {
-  group: Group;
+  group: GroupMetaData;
+
   users: User;
   currentUser: string;
   date: string;

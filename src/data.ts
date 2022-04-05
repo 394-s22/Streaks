@@ -1,7 +1,7 @@
 import { Group, User } from "./lib/types";
 
-const groups: Group[] = [
-  {
+const groups: Group= {
+  '0': {
     description: "This is the description where you run everyday",
     duration: 30,
     groupId: "0",
@@ -22,8 +22,8 @@ const groups: Group[] = [
     },
     publicPot: 0,
     startDate: "2022-04-30",
-  },
-];
+  }
+}
 
 const users: User = {
   "2": {
