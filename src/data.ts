@@ -8,7 +8,7 @@ const groups: Group= {
     groupName: "Cool Runners",
     groupPassword: "password_secret",
     habit: "Running everyday",
-    memberIds: ["2", "3"],
+    memberIds: ["2", "3", "4"],
     payInAmt: 30.0,
     progress: {
       "2022-03-31": { userIdsWhoCheckedIn: ["2", "3"] },

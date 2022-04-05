@@ -70,7 +70,7 @@ const InfoModal: React.FunctionComponent<InfoModalProps> = ({
                   <TableCell component="th" scope="row">
                     Pay-in amount
                   </TableCell>
-                  <TableCell align="right">{group.payInAmt}</TableCell>
+                  <TableCell align="right">${group.payInAmt}</TableCell>
                 </TableRow>
                 <TableRow
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -86,7 +86,7 @@ const InfoModal: React.FunctionComponent<InfoModalProps> = ({
                   <TableCell component="th" scope="row">
                     Duration
                   </TableCell>
-                  <TableCell align="right">{group.duration}</TableCell>
+                  <TableCell align="right">{group.duration} days</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
