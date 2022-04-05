@@ -10,16 +10,19 @@ export type Group = {
   progress: Record<string, GroupProgress>;
   publicPot: number;
   startDate: string;
+  streaks: Record<string, number>;
 };
 
 type GroupProgress = {
   userIdsWhoCheckedIn: string[];
 };
 
-export type User = {
+export type User = Record<string, UserInfo>;
+
+export type UserInfo = {
   cellphoneNumber: string;
   email: string;
-  groupInfo: GroupInfo[];
+  groupInfo: Record<string, GroupInfo>;
   name: string;
   id: string;
 };

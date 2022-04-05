@@ -8,8 +8,8 @@ import { Group, User } from "../lib/types";
 interface GroupPageProps {
   group: Group;
   setGroup: (group: Group) => void;
-  users: User[];
-  setUsers: (users: User[]) => void;
+  users: User;
+  setUsers: (users: User) => void;
   date: string;
   currentUser: string;
 }
@@ -30,6 +30,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
     setSelfCheckIn(!selfCheckIn);
     const updatedGroup = group;
     updatedGroup.progress[date].userIdsWhoCheckedIn.push(currentUser);
+    updatedGroup.streaks[currentUser] = updatedGroup.streaks[currentUser] + 1;
     setGroup(updatedGroup);
     console.log("checked in", group.progress[date].userIdsWhoCheckedIn);
   };
@@ -69,7 +70,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
             Check In
           </Button>
         ) : (
-          <Typography>You have checked in today 🙌</Typography>
+          <Typography>You have checked in today 🙌.</Typography>
         )}
       </Box>
 

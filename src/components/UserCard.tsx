@@ -3,10 +3,10 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { IconButton, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
-import { Group, User } from "../lib/types";
+import { Group, User, UserInfo } from "../lib/types";
 
 interface UserCardProps {
-  user: User;
+  user: UserInfo;
   group: Group;
   currentUser: string;
   date: string;
@@ -19,6 +19,8 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
   date,
 }) => {
   const progress = group.progress;
+  console.log(date);
+  console.log(group.progress[date]);
 
   return (
     <Box
@@ -31,7 +33,7 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
         <Typography>
           {user.name} {user.id === currentUser ? "(me)" : ""}
         </Typography>
-        <Typography>checked</Typography>
+        <Typography>Streak: {group.streaks[user.id]} days.</Typography>
       </Box>
 
       {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
