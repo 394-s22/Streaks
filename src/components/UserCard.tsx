@@ -12,6 +12,8 @@ interface UserCardProps {
   date: string;
 }
 
+
+
 const UserCard: React.FunctionComponent<UserCardProps> = ({
   user,
   currentUser,
@@ -21,7 +23,11 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
   const progress = group.progress;
   console.log(date);
   console.log(group.progress[date]);
-
+  let medals = [
+    <IconButton>🥇</IconButton>,
+    <IconButton>🥈</IconButton>,
+    <IconButton>🥉</IconButton>
+  ]
   return (
     <Box
       display="flex"
@@ -43,6 +49,7 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
       )}
 
       <IconButton>👏</IconButton>
+      
     </Box>
   );
 };

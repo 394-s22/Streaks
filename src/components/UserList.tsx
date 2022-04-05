@@ -1,3 +1,4 @@
+import { IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import { Group, GroupMetaData, User } from "../lib/types";
@@ -21,8 +22,6 @@ const UserList: React.FunctionComponent<UserListProps> = ({
  let sorted = Object.entries(group.streaks).sort((a,b) => {
    return b[1]-a[1]
  })
-
-
 
 
   return (
