@@ -1,6 +1,6 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Icon } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
 import { Group, GroupMetaData, User, UserInfo } from "../lib/types";
@@ -10,24 +10,30 @@ interface UserCardProps {
   group: GroupMetaData;
   currentUser: string;
   date: string;
+  position: number;
 }
-
-
 
 const UserCard: React.FunctionComponent<UserCardProps> = ({
   user,
   currentUser,
   group,
   date,
+  position,
 }) => {
   const progress = group.progress;
   console.log(date);
   console.log(group.progress[date]);
   let medals = [
-    <IconButton>🥇</IconButton>,
-    <IconButton>🥈</IconButton>,
-    <IconButton>🥉</IconButton>
-  ]
+    <Typography role="img" fontSize={30}>
+      🥇
+    </Typography>,
+    <Typography role="img" fontSize={30}>
+      🥈
+    </Typography>,
+    <Typography role="img" fontSize={30}>
+      🥉
+    </Typography>,
+  ];
   return (
     <Box
       display="flex"
@@ -35,11 +41,14 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
       justifyContent="center"
       alignItems="center"
     >
-      <Box>
-        <Typography>
-          {user.name} {user.id === currentUser ? "(me)" : ""}
-        </Typography>
-        <Typography>Streak: {group.streaks[user.id]} days.</Typography>
+      <Box display="flex" flexDirection="row">
+        <Box>{position <= 2 ? medals[position] : <></>}</Box>
+        <Box textAlign="left">
+          <Typography>
+            {user.name} {user.id === currentUser ? "(me)" : ""}
+          </Typography>
+          <Typography>Streak: {group.streaks[user.id]} days.</Typography>
+        </Box>
       </Box>
 
       {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
@@ -49,7 +58,6 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
       )}
 
       <IconButton>👏</IconButton>
-      
     </Box>
   );
 };
