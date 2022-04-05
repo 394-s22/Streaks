@@ -5,7 +5,7 @@ import UserCard from "./UserCard";
 
 interface UserListProps {
   group: Group;
-  users: User[];
+  users: User;
   currentUser: string;
   date: string;
 }
@@ -24,7 +24,7 @@ const UserList: React.FunctionComponent<UserListProps> = ({
         alignItems="center"
         spacing={2}
       >
-        {users.map((user) => (
+        {Object.values(users).map((user) => (
           <UserCard
             key={user.id}
             user={user}

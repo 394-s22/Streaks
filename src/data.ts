@@ -15,51 +15,56 @@ const groups: Group[] = [
       "2022-04-01": { userIdsWhoCheckedIn: ["3"] },
       "2022-04-02": { userIdsWhoCheckedIn: [] },
     },
+    streaks: {
+      "2": 0,
+      "3": 2,
+      "4": 0,
+    },
     publicPot: 0,
     startDate: "2022-04-30",
   },
 ];
 
-const users: User[] = [
-  {
+const users: User = {
+  "2": {
     cellphoneNumber: "462-618-8939",
     email: "john@gmail.com",
-    groupInfo: [
-      {
+    groupInfo: {
+      "0": {
         deposit: 27.5,
         groupId: "0",
         payout: 2.5,
       },
-    ],
+    },
     name: "John Doe",
     id: "2",
   },
-  {
+  "3": {
     cellphoneNumber: "472-968-0939",
     email: "jane@gmail.com",
-    groupInfo: [
-      {
+    groupInfo: {
+      "0": {
         deposit: 27.5,
         groupId: "0",
         payout: 2.5,
       },
-    ],
+    },
     name: "Jane Doe",
     id: "3",
   },
-  {
+  "4": {
     cellphoneNumber: "423-634-5683",
     email: "test@gmail.com",
-    groupInfo: [
-      {
+    groupInfo: {
+      "0": {
         deposit: 27.5,
         groupId: "0",
         payout: 2.5,
       },
-    ],
+    },
     name: "Test Person",
     id: "4",
   },
-];
+};
 
 export { groups, users };
