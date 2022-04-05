@@ -23,15 +23,15 @@ const UserList: React.FunctionComponent<UserListProps> = ({
   });
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center">
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Stack
         direction="column"
         justifyContent="center"
-        alignItems="flex-start"
+        alignItems="center"
         spacing={2}
+        width="100%"
         maxWidth="600"
+        sx={{ p: 2 }}
       >
         {sorted.map((pair, index) => (
           <UserCard

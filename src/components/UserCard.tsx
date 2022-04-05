@@ -40,29 +40,37 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
       flexDirection="row"
       justifyContent="flex-start"
       alignItems="center"
-      maxWidth="600"
+      width="100%"
+      maxWidth="600px"
     >
-      <Box display="flex" 
-           flexDirection="row" 
-           alignItems="center" 
-           justifyContent="space-between" 
-           width="600px">
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
+      >
         <Box display="flex" flexDirection="row" alignItems="center">
-        <Box sx={{ p: 1 }}>{position <= 2 ? medals[position] : <></>}</Box>
-        <Box textAlign="left">
-          <Typography display="flex" 
-                      justifyContent="flex-start" 
-                      alignItems="center"
-                      sx={{ fontWeight: 600}}>
-            {user.name} {user.id === currentUser ? "(me)" : ""}
-            {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
-              <CheckCircleIcon color="success" sx={{ml: 1, fontSize: 20}}/>
-             ) : (
-              <RadioButtonUncheckedIcon sx={{ml: 1, fontSize: 20}}/>
-      )}
-          </Typography>
-          <Typography>Streak: {group.streaks[user.id]} day{group.streaks[user.id] == 1 ? "" : "s"}</Typography>
-        </Box>
+          <Box sx={{ p: 1 }}>{position <= 2 ? medals[position] : <></>}</Box>
+          <Box textAlign="left">
+            <Typography
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+              sx={{ fontWeight: 600 }}
+            >
+              {user.name} {user.id === currentUser ? "(me)" : ""}
+              {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
+                <CheckCircleIcon color="success" sx={{ ml: 1, fontSize: 20 }} />
+              ) : (
+                <RadioButtonUncheckedIcon sx={{ ml: 1, fontSize: 20 }} />
+              )}
+            </Typography>
+            <Typography>
+              Streak: {group.streaks[user.id]} day
+              {group.streaks[user.id] == 1 ? "" : "s"}
+            </Typography>
+          </Box>
         </Box>
         <IconButton>👏</IconButton>
       </Box>

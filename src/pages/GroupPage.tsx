@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, AppBar, Toolbar, IconButton,  } from "@mui/material";
+import { Box, Button, AppBar, Toolbar, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoModal from "../components/InfoModal";
 import UserList from "../components/UserList";
@@ -8,7 +8,7 @@ import { Group, GroupMetaData, User } from "../lib/types";
 
 interface GroupPageProps {
   group: GroupMetaData;
-  currentGroup : string;
+  currentGroup: string;
   setGroup: (group: GroupMetaData) => void;
   users: User;
   setUsers: (users: User) => void;
@@ -27,23 +27,23 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [selfCheckIn, setSelfCheckIn] = useState(false);
-  const [payout, setPayout] = useState(users[currentUser].groupInfo[currentGroup].payout)
+  const [payout, setPayout] = useState(
+    users[currentUser].groupInfo[currentGroup].payout
+  );
 
-  const dailyWinnings = users[currentUser].groupInfo[group.groupId].deposit /group.duration ;
+  const dailyWinnings =
+    users[currentUser].groupInfo[group.groupId].deposit / group.duration;
   const updateProgress = () => {
     setSelfCheckIn(!selfCheckIn);
     const updatedGroup = group;
     updatedGroup.progress[date].userIdsWhoCheckedIn.push(currentUser);
     updatedGroup.streaks[currentUser] = updatedGroup.streaks[currentUser] + 1;
     setGroup(updatedGroup);
-
-  }
-
+  };
 
   const handleCheckIn = () => {
-    updateProgress()
-    setPayout(payout+ dailyWinnings);
-    
+    updateProgress();
+    setPayout(payout + dailyWinnings);
   };
 
   const handleOpen = () => {
@@ -65,12 +65,23 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton> */}
-          <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
             <Typography variant="h6" color="inherit" component="div">
               Streaks
             </Typography>
             <Typography>
-              {(new Date()).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+              {new Date().toLocaleString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </Typography>
           </Box>
         </Toolbar>
@@ -83,7 +94,9 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           {group.habit}
         </Typography>
 
-        <Button onClick={handleOpen} color="secondary">Info</Button>
+        <Button onClick={handleOpen} color="secondary">
+          Info
+        </Button>
         <InfoModal handleClose={handleClose} isOpen={open} group={group} />
         <UserList
           group={group}
@@ -92,18 +105,26 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           date={date}
         />
         {!selfCheckIn ? (
-          <Button variant="contained" color="secondary" onClick={handleCheckIn} sx={{ m: 3.75 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleCheckIn}
+            sx={{ m: 3.75 }}
+          >
             Check In
           </Button>
         ) : (
           <>
             <Typography>You have checked in today 🙌</Typography>
-            <Typography> ${dailyWinnings.toFixed(2)} has been added to your payout 💸</Typography>
+            <Typography>
+              {" "}
+              ${dailyWinnings.toFixed(2)} has been added to your payout 💸
+            </Typography>
           </>
         )}
       </Box>
 
-      <Box sx={{ bgcolor: "#aaa"}}>
+      <Box sx={{ bgcolor: "#aaa" }}>
         <Box
           margin="auto"
           display="flex"
@@ -112,9 +133,9 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
           padding={3}
           maxWidth={600}
         >
-          <Typography>{group.memberIds.length} members.</Typography>
+          <Typography>{group.memberIds.length} members</Typography>
           <Typography>Your Payout: ${payout.toFixed(2)}</Typography>
-          <Typography>${group.publicPot} in the pot.</Typography>
+          <Typography>${group.publicPot} in the pot</Typography>
         </Box>
       </Box>
     </Box>
