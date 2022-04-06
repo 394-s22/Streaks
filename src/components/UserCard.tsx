@@ -4,6 +4,7 @@ import { IconButton, Typography, Icon } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
 import { Group, GroupMetaData, User, UserInfo } from "../lib/types";
+import ChatIcon from "@mui/icons-material/Chat";
 
 interface UserCardProps {
   user: UserInfo;
@@ -74,7 +75,13 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
             </Typography>
           </Box>
         </Box>
-        <IconButton>👏</IconButton>
+        {user.id === currentUser ? (
+          <IconButton>
+            <ChatIcon />
+          </IconButton>
+        ) : (
+          <IconButton>👏</IconButton>
+        )}
       </Box>
     </Box>
   );
