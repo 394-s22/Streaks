@@ -7,8 +7,8 @@ const groups: Group = {
     groupId: "0",
     groupName: "Cool Runners",
     groupPassword: "password_secret",
-    habit: "Running everyday",
-    memberIds: ["2", "3", "4"],
+    habit: "Run everyday",
+    memberIds: ["2", "3", "4", "5"],
     payInAmt: 30.0,
     progress: {
       "2022-03-30": { userIdsWhoCheckedIn: [] },
@@ -64,7 +64,7 @@ const users: User = {
         payout: 2.5,
       },
     },
-    name: "Test Person",
+    name: "Bart Simpson",
     id: "4",
   },
   "5": {
@@ -77,7 +77,7 @@ const users: User = {
         payout: 2.5,
       },
     },
-    name: "Hello world",
+    name: "Lisa Simpson",
     id: "5",
   },
 };
