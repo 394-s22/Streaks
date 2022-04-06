@@ -87,7 +87,12 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
         </Toolbar>
       </AppBar>
       <Box>
-        <Typography variant="overline" display="block" lineHeight={1}>
+        <Typography
+          variant="overline"
+          display="block"
+          lineHeight={1}
+          marginTop={2}
+        >
           Group Name:
         </Typography>
         <Typography variant="h2" gutterBottom component="div" lineHeight={1}>
