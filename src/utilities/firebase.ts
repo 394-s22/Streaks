@@ -14,41 +14,42 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-// const database = getDatabase(firebase);
+const database = getDatabase(firebase);
 
-// export const useData = (path, transform) => {
-//   const [data, setData] = useState();
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
+export const useData = (path: string, transform: (arg0: any) => void) => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-//   useEffect(() => {
-//     const dbRef = ref(database, path);
-//     const devMode =
-//       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
-//     if (devMode) {
-//       console.log(`loading ${path}`);
-//     }
+  useEffect(() => {
+    const dbRef = ref(database, path);
+    const devMode =
+      !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+    if (devMode) {
+      console.log(`loading ${path}`);
+    }
 
-//     return onValue(
-//       dbRef,
-//       (snapshot) => {
-//         const val = snapshot.val();
-//         if (devMode) {
-//           console.log(val);
-//         }
-//         setData(transform ? transform(val) : val);
-//         setLoading(false);
-//         setError(null);
-//       },
-//       (error) => {
-//         setData(null);
-//         setLoading(false);
-//         setError(error.message);
-//       }
-//     );
-//   }, [path, transform]);
+    return onValue(
+      dbRef,
+      (snapshot) => {
+        const val = snapshot.val();
+        if (devMode) {
+          console.log(val);
+        }
+        setData(transform ? transform(val) : val);
+        setLoading(false);
+        setError("");
+      },
+      (error) => {
+        // setData();
+        setLoading(false);
+        setError(error.message);
+      }
+    );
+  }, [path, transform]);
 
-//   return [data, loading, error];
-// };
+  return [data, loading, error];
+};
 
-// export const setData = (path, value) => set(ref(database, path), value);
+export const setData = (path: string, value: any) =>
+  set(ref(database, path), value);

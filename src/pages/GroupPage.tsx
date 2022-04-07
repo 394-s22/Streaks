@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import InfoModal from "../components/InfoModal";
 import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
+import { useData } from "../utilities/firebase";
 
 interface GroupPageProps {
   group: GroupMetaData;
@@ -40,6 +41,12 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
     updatedGroup.streaks[currentUser] = updatedGroup.streaks[currentUser] + 1;
     setGroup(updatedGroup);
   };
+
+  const testFn = (data: any) => {
+    console.log("Data:");
+    console.log(data);
+  };
+  useData("/users", testFn);
 
   const handleCheckIn = () => {
     updateProgress();
