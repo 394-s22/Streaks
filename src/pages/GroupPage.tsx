@@ -11,160 +11,190 @@ import { group } from "console";
 
 interface GroupPageProps {
   currentGroup: string;
-  users: User;
-  setUsers: (users: User) => void;
   date: string;
   currentUser: string;
 }
 
 const GroupPage: React.FunctionComponent<GroupPageProps> = ({
   currentGroup,
-  users,
-  setUsers,
   date,
   currentUser,
 }) => {
   const [open, setOpen] = useState(false);
-  const [payout, setPayout] = useState(
-    users[currentUser].groupInfo[currentGroup].payout
-  );
 
   const [data, loading, error] = useData("/groups/" + currentGroup, null);
-
-  if (loading) {
+  const [usersData, userLoading, userError] = useData("/users", null);
+  const [dateSet, setDateSet] = useState(false);
+  if (loading || userLoading) {
     return <p>Loading...</p>;
-  } else if (error) {
+  } else if (error || userError) {
     return <h1>{error}</h1>;
+  } else if (userError) {
+    return <h1>{userError}</h1>;
   } else {
-    const updateProgress = async () => {
-      let new_list = data.progress[date].userIdsWhoCheckedIn;
-      console.log(new_list);
-      new_list.push(currentUser);
-      console.log(date);
-      await setData(
-        `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
-        new_list
-      ).catch((e) => alert(e));
-    };
+    if (!data.progress[date] || !dateSet) {
+      const updateDate = async () => {
+        await setData(
+          `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
+          [""]
+        ).then(setDateSet(true));
+      };
 
-    const handleCheckIn = () => {
-      updateProgress();
-      setPayout(
-        payout +
-          users[currentUser].groupInfo[data.groupId].deposit / data.duration
-      );
-    };
+      updateDate();
 
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
+      return <h1>loading date</h1>;
+    } else {
+      const updateProgress = async () => {
+        let new_list = data.progress[date].userIdsWhoCheckedIn;
+        console.log(new_list);
+        new_list.push(currentUser);
+        console.log(date);
+        await setData(
+          `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
+          new_list
+        ).catch((e) => alert(e));
+        await setData(
+          `/groups/${currentGroup}/streaks/${currentUser}`,
+          data.streaks[currentUser] + 1
+        ).catch((e) => alert(e));
+      };
+      const updatePayout = async () => {
+        let newPayout =
+          usersData[currentUser].groupInfo[currentGroup].payout +
+          usersData[currentUser].groupInfo[data.groupId].deposit /
+            data.duration;
+        await setData(
+          `/users/${currentUser}/groupInfo/${currentGroup}/payout`,
+          newPayout
+        ).catch((e) => alert(e));
+      };
 
-    return (
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        flexDirection="column"
-        height="100%"
-      >
-        <AppBar position="static" color="secondary">
-          <Toolbar variant="dense">
-            {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton> */}
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-between"
-              width="100%"
+      const handleCheckIn = () => {
+        updateProgress();
+        updatePayout();
+      };
+
+      const handleOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
+
+      return (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="column"
+          height="100%"
+        >
+          <AppBar position="static" color="secondary">
+            <Toolbar variant="dense">
+              {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                  <MenuIcon />
+                </IconButton> */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Typography variant="h6" color="inherit" component="div">
+                  Streaks
+                </Typography>
+                <Typography>
+                  {new Date().toLocaleString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </Typography>
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Box>
+            <Typography
+              variant="overline"
+              display="block"
+              lineHeight={1}
+              marginTop={2}
             >
-              <Typography variant="h6" color="inherit" component="div">
-                Streaks
-              </Typography>
-              <Typography>
-                {new Date().toLocaleString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </Typography>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Box>
-          <Typography
-            variant="overline"
-            display="block"
-            lineHeight={1}
-            marginTop={2}
-          >
-            Group Name:
-          </Typography>
-          <Typography variant="h2" gutterBottom component="div" lineHeight={1}>
-            {data.groupName}
-          </Typography>
-          <Typography variant="overline" display="block">
-            Daily Habit:
-          </Typography>
-          <Typography variant="h4" gutterBottom component="div">
-            {data.habit}
-          </Typography>
-
-          <Button onClick={handleOpen} color="secondary">
-            Info
-          </Button>
-          <InfoModal handleClose={handleClose} isOpen={open} group={data} />
-          <UserList
-            group={data}
-            users={users}
-            currentUser={currentUser}
-            date={date}
-          />
-          {!data.progress[date].userIdsWhoCheckedIn.includes(currentUser) ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleCheckIn}
-              sx={{ m: 3.75 }}
+              Group Name:
+            </Typography>
+            <Typography
+              variant="h2"
+              gutterBottom
+              component="div"
+              lineHeight={1}
             >
-              Check In
+              {data.groupName}
+            </Typography>
+            <Typography variant="overline" display="block">
+              Daily Habit:
+            </Typography>
+            <Typography variant="h4" gutterBottom component="div">
+              {data.habit}
+            </Typography>
+
+            <Button onClick={handleOpen} color="secondary">
+              Info
             </Button>
-          ) : (
-            <>
-              <Typography>You have checked in today 🙌</Typography>
-              <Typography>
-                {" "}
-                $
-                {(
-                  users[currentUser].groupInfo[data.groupId].deposit /
-                  data.duration
-                ).toFixed(2)}{" "}
-                has been added to your payout 💸
-              </Typography>
-            </>
-          )}
-        </Box>
+            <InfoModal handleClose={handleClose} isOpen={open} group={data} />
+            <UserList
+              group={data}
+              users={usersData}
+              currentUser={currentUser}
+              date={date}
+            />
+            {!data.progress[date].userIdsWhoCheckedIn.includes(currentUser) ? (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleCheckIn}
+                sx={{ m: 3.75 }}
+              >
+                Check In
+              </Button>
+            ) : (
+              <>
+                <Typography>You have checked in today 🙌</Typography>
+                <Typography>
+                  {" "}
+                  $
+                  {(
+                    usersData[currentUser].groupInfo[data.groupId].deposit /
+                    data.duration
+                  ).toFixed(2)}{" "}
+                  has been added to your payout 💸
+                </Typography>
+              </>
+            )}
+          </Box>
 
-        <Box sx={{ bgcolor: "#aaa" }}>
-          <Box
-            margin="auto"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            padding={3}
-            maxWidth={600}
-          >
-            <Typography>{data.memberIds.length} members</Typography>
-            <Typography>Your Payout: ${payout.toFixed(2)}</Typography>
-            <Typography>${data.publicPot} in the pot</Typography>
+          <Box sx={{ bgcolor: "#aaa" }}>
+            <Box
+              margin="auto"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              padding={3}
+              maxWidth={600}
+            >
+              <Typography>{data.memberIds.length} members</Typography>
+              <Typography>
+                Your Payout: $
+                {usersData[currentUser].groupInfo[currentGroup].payout.toFixed(
+                  2
+                )}
+              </Typography>
+              <Typography>${data.publicPot} in the pot</Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    );
+      );
+    }
   }
 };
 

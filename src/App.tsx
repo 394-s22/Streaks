@@ -11,14 +11,14 @@ const App: React.FunctionComponent = () => {
   const currGroup = "0";
   const [users, setUsers] = useState(data.users);
   const currUser = "2";
-  const date = "2022-04-01";
+
+  const date = new Date().toISOString().substring(0, 10);
 
   return (
     <div className="App">
       <GroupPage
         currentGroup={currGroup}
-        users={users}
-        setUsers={setUsers}
+
         currentUser={currUser}
         date={date}
       />
