@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Button, AppBar, Toolbar, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,7 +7,6 @@ import InfoModal from "../components/InfoModal";
 import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
-import { group } from "console";
 
 interface GroupPageProps {
   currentGroup: string;
@@ -25,6 +24,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
   const [data, loading, error] = useData("/groups/" + currentGroup, null);
   const [usersData, userLoading, userError] = useData("/users", null);
 
+  // Adds the current date to database (with an array with just an empty string)
   const addNewDate = async () => {
     await setData(
       `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
@@ -41,6 +41,7 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
   } else if (userError) {
     return <p>{userError}</p>;
   } else {
+    // adds the current date to the database if it doesn't exist
     if (!data.progress[date]) {
       addNewDate();
     }
