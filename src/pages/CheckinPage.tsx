@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Box, Button, AppBar, Toolbar, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoModal from "../components/InfoModal";
+import AddProofModal from "../components/AddProofModal";
 import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
@@ -20,6 +21,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   currentUser,
 }) => {
   const [open, setOpen] = useState(false);
+  const [proofOpen, setProofOpen] = useState(false);
 
   const [data, loading, error] = useData("/groups/" + currentGroup, null);
   const [usersData, userLoading, userError] = useData("/users", null);
@@ -82,6 +84,13 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       setOpen(false);
     };
 
+    const openProofModal = () => {
+      setProofOpen(true);
+    };
+    const closeProofModal = () => {
+      setProofOpen(false);
+    };
+
     return (
       <Box
         display="flex"
@@ -138,6 +147,14 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             Info
           </Button>
           <InfoModal handleClose={handleClose} isOpen={open} group={data} />
+          <AddProofModal
+            handleClose={closeProofModal}
+            isOpen={proofOpen}
+            handleCheckIn={handleCheckIn}
+            currentDate={date}
+            currentUser={currentUser}
+            currentGroup={currentGroup}
+          />
           <UserList
             group={data}
             users={usersData}
@@ -150,7 +167,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             <Button
               variant="contained"
               color="secondary"
-              onClick={handleCheckIn}
+              onClick={openProofModal}
               sx={{ m: 3.75 }}
             >
               Check In
