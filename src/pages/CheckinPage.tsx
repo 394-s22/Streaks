@@ -91,6 +91,20 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       setProofOpen(false);
     };
 
+    // removes check in and reduces streak
+    const handleUndoCheckIn = async () => {
+      let new_list = data.progress[date].userIdsWhoCheckedIn;
+      new_list.pop();
+      await setData(
+        `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
+        new_list
+      ).catch((e) => alert(e));
+      await setData(
+        `/groups/${currentGroup}/streaks/${currentUser}`,
+        data.streaks[currentUser] - 1
+      ).catch((e) => alert(e));
+    };
+
     return (
       <Box
         display="flex"
@@ -203,6 +217,19 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               {usersData[currentUser].groupInfo[currentGroup].payout.toFixed(2)}
             </Typography>
             <Typography>${data.publicPot} in the pot</Typography>
+          </Box>
+          <Box>
+            {data.progress[date].userIdsWhoCheckedIn.includes(currentUser) ? (
+              <Button
+                variant="text"
+                onClick={handleUndoCheckIn}
+                marginBottom={2}
+              >
+                Undo Check In
+              </Button>
+            ) : (
+              <></>
+            )}
           </Box>
         </Box>
       </Box>
