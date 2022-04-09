@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import "./pages/GroupPage";
-import GroupPage from "./pages/GroupPage";
-import { useData } from "./utilities/firebase";
-import { Group, User } from "./lib/types";
-
-import * as data from "./data";
+import "./pages/CheckinPage";
+import CheckinPage from "./pages/CheckinPage";
+import GroupsPage from "./pages/GroupsPage"
+import LandingPage from "./pages/LandingPage"
+import SignUpPage from "./pages/SignUpPage"
+import LogInPage from "./pages/LogInPage"
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
@@ -16,7 +17,14 @@ const App: React.FunctionComponent = () => {
 
   return (
     <div className="App">
-      <GroupPage currentGroup={currGroup} currentUser={currUser} date={date} />
+      <Routes>
+        <Route path="/" element={<LandingPage currentUser={currUser} />} />
+        <Route path="/groups" element={<GroupsPage currentUser={currUser} />} />
+        <Route path="/checkin" element={<CheckinPage currentGroup={currGroup} currentUser={currUser} date={date} />} />
+        <Route path="/login" element={<LogInPage currentUser={currUser} />} />
+        <Route path="/signup" element={<SignUpPage currentUser={currUser} />} />
+      </Routes>
+
     </div>
   );
 };
