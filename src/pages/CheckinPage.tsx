@@ -8,13 +8,13 @@ import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
 
-interface GroupPageProps {
+interface CheckinPageProps {
   currentGroup: string;
   date: string;
   currentUser: string;
 }
 
-const GroupPage: React.FunctionComponent<GroupPageProps> = ({
+const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   currentGroup,
   date,
   currentUser,
@@ -193,4 +193,4 @@ const GroupPage: React.FunctionComponent<GroupPageProps> = ({
   }
 };
 
-export default GroupPage;
+export default CheckinPage;
