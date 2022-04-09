@@ -63,7 +63,9 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
               sx={{ fontWeight: 600 }}
             >
               {user.name} {user.id === currentUser ? "(me)" : ""}
-              {progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
+              {!progress[date] ? (
+                <></>
+              ) : progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
                 <CheckCircleIcon color="success" sx={{ ml: 1, fontSize: 20 }} />
               ) : (
                 <RadioButtonUncheckedIcon sx={{ ml: 1, fontSize: 20 }} />
