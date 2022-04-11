@@ -1,10 +1,11 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { IconButton, Typography, Icon } from "@mui/material";
+import { IconButton, Typography, Icon, Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Group, GroupMetaData, User, UserInfo } from "../lib/types";
 import ChatIcon from "@mui/icons-material/Chat";
+import { getImageUrl } from "../utilities/firebaseStorage";
 
 interface UserCardProps {
   user: UserInfo;
@@ -24,6 +25,20 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
   const progress = group.progress;
   console.log(date);
   console.log(group.progress[date]);
+
+  const [proofOpen, setProofOpen] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
+
+  function getImgUrl() {
+    getImageUrl(currentUser, date, group.groupId).then((data) => {
+      setImgUrl(data);
+    });
+  }
+
+  useEffect(() => {
+    getImgUrl();
+  }, [imgUrl]);
+
   let medals = [
     <Typography role="img" fontSize={30}>
       🥇
@@ -74,6 +89,16 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
             <Typography>
               Streak: {group.streaks[user.id]} day
               {group.streaks[user.id] == 1 ? "" : "s"}
+              {progress[date].userIdsWhoCheckedIn.includes(user.id) &&
+              imgUrl ? (
+                <Button variant="text">
+                  <a target="_blank" href={imgUrl} rel="noreferrer">
+                    View Proof
+                  </a>
+                </Button>
+              ) : (
+                ""
+              )}
             </Typography>
           </Box>
         </Box>
