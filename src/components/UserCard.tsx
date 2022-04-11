@@ -88,7 +88,7 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
             </Typography>
             <Typography>
               Streak: {group.streaks[user.id]} day
-              {group.streaks[user.id] == 1 ? "" : "s"}
+              {group.streaks[user.id] === 1 ? "" : "s"}
               {progress[date].userIdsWhoCheckedIn.includes(user.id) &&
               imgUrl ? (
                 <Button variant="text">
