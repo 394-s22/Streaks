@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import "./pages/GroupPage";
-import GroupPage from "./pages/GroupPage";
+import CheckinPage from "./pages/CheckinPage";
 import { useData } from "./utilities/firebase";
 import { Group, User } from "./lib/types";
 
@@ -16,7 +15,11 @@ const App: React.FunctionComponent = () => {
 
   return (
     <div className="App">
-      <GroupPage currentGroup={currGroup} currentUser={currUser} date={date} />
+      <CheckinPage
+        currentGroup={currGroup}
+        currentUser={currUser}
+        date={date}
+      />
     </div>
   );
 };
