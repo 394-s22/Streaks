@@ -27,17 +27,6 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
   console.log(group.progress[date]);
 
   const [proofOpen, setProofOpen] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-
-  function getImgUrl() {
-    getImageUrl(currentUser, date, group.groupId).then((data) => {
-      setImgUrl(data);
-    });
-  }
-
-  useEffect(() => {
-    getImgUrl();
-  }, [imgUrl]);
 
   let medals = [
     <Typography role="img" fontSize={30}>
@@ -89,26 +78,9 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
             <Typography>
               Streak: {group.streaks[user.id]} day
               {group.streaks[user.id] === 1 ? "" : "s"}
-              {progress[date].userIdsWhoCheckedIn.includes(user.id) &&
-              imgUrl ? (
-                <Button variant="text">
-                  <a target="_blank" href={imgUrl} rel="noreferrer">
-                    View Proof
-                  </a>
-                </Button>
-              ) : (
-                ""
-              )}
             </Typography>
           </Box>
         </Box>
-        {user.id === currentUser ? (
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-        ) : (
-          <IconButton>👏</IconButton>
-        )}
       </Box>
     </Box>
   );

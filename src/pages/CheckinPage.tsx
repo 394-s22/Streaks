@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RuleIcon from '@mui/icons-material/Rule';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import FeedPage from "./FeedPage";
 
 
 interface CheckinPageProps {
@@ -208,7 +209,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               ) : (
                 <>
                   <Typography>You have checked in today 🙌</Typography>
-                  <Typography>
+                  {/* <Typography>
                     {" "}
                     $
                     {(
@@ -216,13 +217,13 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
                       data.duration
                     ).toFixed(2)}{" "}
                     has been added to your payout 💸
-                  </Typography>
+                  </Typography> */}
                 </>
               )}
             </Box>
           </Box>
         ) : (
-          <h1>Feed Page</h1>
+          <FeedPage userData={usersData} currentDate={date} group={data}/>
         )}
         <Paper 
         sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} 
