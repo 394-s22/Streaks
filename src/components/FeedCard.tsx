@@ -15,7 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { UserInfo } from "../lib/types";
-import { getImageUrl } from "../utilities/firebaseStorage";
+import {getImageUrl, getImageCaption} from '../utilities/firebaseStorage'
 import { useState, useEffect } from "react";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -33,16 +33,30 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   groupId,
 }) => {
   const [imgUrl, setImgUrl] = useState("");
+  const [imgCaption, setImgCaption] = useState('');
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
       setImgUrl(data);
     });
   }
+  function getImgCaption(){
+    getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
+      console.log('this is metadata', data)
+      if(data.customMetadata){
+        setImgCaption(data.customMetadata.imgCaption)
+      }
+      
+    });
+  }
 
   useEffect(() => {
     getImgUrl();
   }, [imgUrl]);
+
+  useEffect(() => {
+    getImgCaption();
+  }, [imgCaption]);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -73,7 +87,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Proof caption here (optional)
+          {imgCaption}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
