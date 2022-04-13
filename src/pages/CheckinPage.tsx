@@ -1,13 +1,21 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, AppBar, Toolbar, IconButton } from "@mui/material";
+import { Box, Button, AppBar, Toolbar, IconButton, Paper } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoModal from "../components/InfoModal";
 import AddProofModal from "../components/AddProofModal";
 import UserList from "../components/UserList";
 import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import RestoreIcon from "@mui/icons-material/Restore";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import RuleIcon from '@mui/icons-material/Rule';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+
 
 interface CheckinPageProps {
   currentGroup: string;
@@ -22,6 +30,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [proofOpen, setProofOpen] = useState(false);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const [data, loading, error] = useData("/groups/" + currentGroup, null);
   const [usersData, userLoading, userError] = useData("/users", null);
@@ -106,133 +115,130 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     };
 
     return (
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        flexDirection="column"
-        height="100%"
-      >
+      <Box>
         <AppBar position="static" color="secondary">
-          <Toolbar variant="dense">
-            {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+              <Toolbar variant="dense">
+                {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                   <MenuIcon />
                 </IconButton> */}
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-between"
-              width="100%"
-            >
-              <Typography variant="h6" color="inherit" component="div">
-                Streaks
-              </Typography>
-              <Typography>
-                {new Date().toLocaleString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </Typography>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Box>
-          <Typography
-            variant="overline"
-            display="block"
-            lineHeight={1}
-            marginTop={2}
-          >
-            Group Name:
-          </Typography>
-          <Typography variant="h2" gutterBottom component="div" lineHeight={1}>
-            {data.groupName}
-          </Typography>
-          <Typography variant="overline" display="block">
-            Daily Habit:
-          </Typography>
-          <Typography variant="h4" gutterBottom component="div">
-            {data.habit}
-          </Typography>
-
-          <Button onClick={handleOpen} color="secondary">
-            Info
-          </Button>
-          <InfoModal handleClose={handleClose} isOpen={open} group={data} />
-          <AddProofModal
-            handleClose={closeProofModal}
-            isOpen={proofOpen}
-            handleCheckIn={handleCheckIn}
-            currentDate={date}
-            currentUser={currentUser}
-            currentGroup={currentGroup}
-          />
-          <UserList
-            group={data}
-            users={usersData}
-            currentUser={currentUser}
-            date={date}
-          />
-          {!data.progress[date] ? (
-            <></>
-          ) : !data.progress[date].userIdsWhoCheckedIn.includes(currentUser) ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={openProofModal}
-              sx={{ m: 3.75 }}
-            >
-              Check In
-            </Button>
-          ) : (
-            <>
-              <Typography>You have checked in today 🙌</Typography>
-              <Typography>
-                {" "}
-                $
-                {(
-                  usersData[currentUser].groupInfo[data.groupId].deposit /
-                  data.duration
-                ).toFixed(2)}{" "}
-                has been added to your payout 💸
-              </Typography>
-            </>
-          )}
-        </Box>
-
-        <Box sx={{ bgcolor: "#aaa" }}>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width="100%"
+                >
+                  <Typography variant="h6" color="inherit" component="div">
+                    Streaks
+                  </Typography>
+                  <Typography>
+                    {new Date().toLocaleString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </Typography>
+                </Box>
+              </Toolbar>
+            </AppBar>
+        {pageNumber == 0 ? (
           <Box
-            margin="auto"
             display="flex"
             justifyContent="space-between"
-            alignItems="center"
-            padding={3}
-            maxWidth={600}
+            flexDirection="column"
+            height="100%"
           >
-            <Typography>{data.memberIds.length} members</Typography>
-            <Typography>
-              Your Payout: $
-              {usersData[currentUser].groupInfo[currentGroup].payout.toFixed(2)}
-            </Typography>
-            <Typography>${data.publicPot} in the pot</Typography>
-          </Box>
-          <Box>
-            {data.progress[date].userIdsWhoCheckedIn.includes(currentUser) ? (
-              <Button
-                variant="text"
-                onClick={handleUndoCheckIn}
-                marginBottom={2}
+            <Box>
+              <Typography
+                variant="overline"
+                display="block"
+                lineHeight={1}
+                marginTop={2}
               >
-                Undo Check In
+                Group Name:
+              </Typography>
+              <Typography
+                variant="h2"
+                gutterBottom
+                component="div"
+                lineHeight={1}
+              >
+                {data.groupName}
+              </Typography>
+              <Typography variant="overline" display="block">
+                Daily Habit:
+              </Typography>
+              <Typography variant="h4" gutterBottom component="div">
+                {data.habit}
+              </Typography>
+
+              <Button onClick={handleOpen} color="secondary">
+                Info
               </Button>
-            ) : (
-              <></>
-            )}
+              <InfoModal handleClose={handleClose} isOpen={open} group={data} />
+              <AddProofModal
+                handleClose={closeProofModal}
+                isOpen={proofOpen}
+                handleCheckIn={handleCheckIn}
+                currentDate={date}
+                currentUser={currentUser}
+                currentGroup={currentGroup}
+              />
+              <UserList
+                group={data}
+                users={usersData}
+                currentUser={currentUser}
+                date={date}
+              />
+              {!data.progress[date] ? (
+                <></>
+              ) : !data.progress[date].userIdsWhoCheckedIn.includes(
+                  currentUser
+                ) ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={openProofModal}
+                  sx={{ m: 3.75 }}
+                >
+                  Check In
+                </Button>
+              ) : (
+                <>
+                  <Typography>You have checked in today 🙌</Typography>
+                  <Typography>
+                    {" "}
+                    $
+                    {(
+                      usersData[currentUser].groupInfo[data.groupId].deposit /
+                      data.duration
+                    ).toFixed(2)}{" "}
+                    has been added to your payout 💸
+                  </Typography>
+                </>
+              )}
+            </Box>
           </Box>
-        </Box>
+        ) : (
+          <h1>Feed Page</h1>
+        )}
+        <Paper 
+        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} 
+        elevation={10}
+        >
+        <BottomNavigation
+          showLabels
+          value={pageNumber}
+          onChange={(event, newValue) => {
+            setPageNumber(newValue);}} 
+        >
+          <BottomNavigationAction label="Check-In" icon={<RuleIcon />} />
+          <BottomNavigationAction label="Feed" icon={<EmojiPeopleIcon />} />
+        </BottomNavigation>
+        </Paper>
       </Box>
+      
     );
   }
 };
