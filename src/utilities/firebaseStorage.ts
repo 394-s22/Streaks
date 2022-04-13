@@ -1,11 +1,12 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, getMetadata } from "firebase/storage";
 
 // 'file' comes from the Blob or File API
 export const uploadImage = (
   image: File,
   userId: string,
   currentDate: string,
-  currentGroup: string
+  currentGroup: string,
+  caption: string
 ) => {
   const storage = getStorage();
   const storageRef = ref(
@@ -15,10 +16,13 @@ export const uploadImage = (
   const metadata = {
     contentType: "image/jpeg",
     public: true,
+    customMetadata: {
+      imgCaption: caption
+    }
   };
   console.log("test");
   uploadBytes(storageRef, image, metadata).then((snapshot) => {
-    console.log("Uploaded a blob or file!");
+    console.log("Uploaded a blob or file!", snapshot);
   });
 };
 
@@ -34,4 +38,18 @@ export const getImageUrl = (
   );
 
   return getDownloadURL(storageRef);
+};
+
+export const getImageCaption = (
+  userId: string,
+  currentDate: string,
+  currentGroup: string
+) => {
+  const storage = getStorage();
+  const storageRef = ref(
+    storage,
+    `userAssets/${userId}/proofs/${currentGroup}/${currentDate}`
+  );
+
+  return getMetadata(storageRef);
 };

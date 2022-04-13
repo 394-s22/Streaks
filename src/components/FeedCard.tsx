@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { UserInfo } from '../lib/types';
-import {getImageUrl} from '../utilities/firebaseStorage'
+import {getImageUrl, getImageCaption} from '../utilities/firebaseStorage'
 import { useState, useEffect} from 'react';
 
 interface FeedCardProps {
@@ -32,16 +32,30 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }) => {
 
   const [imgUrl, setImgUrl] = useState("");
+  const [imgCaption, setImgCaption] = useState('');
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
       setImgUrl(data);
     });
   }
+  function getImgCaption(){
+    getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
+      console.log('this is metadata', data)
+      if(data.customMetadata){
+        setImgCaption(data.customMetadata.imgCaption)
+      }
+      
+    });
+  }
 
   useEffect(() => {
     getImgUrl();
   }, [imgUrl]);
+
+  useEffect(() => {
+    getImgCaption();
+  }, [imgCaption]);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -67,9 +81,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {imgCaption}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

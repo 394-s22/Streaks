@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
@@ -39,6 +39,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
 }) => {
   const [imageUploaded, setImageUploaded] = useState(false);
   const [image, setImage] = useState("");
+  const [imgCaption, setCaption] = useState('')
 
   // SOURCE: https://stackoverflow.com/questions/43992427/how-to-display-a-image-selected-from-input-type-file-in-reactjs
   const onImageChange = (event: any) => {
@@ -49,10 +50,19 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
         event.target.files[0],
         currentUser,
         currentDate,
-        currentGroup
+        currentGroup,
+        imgCaption
       );
     }
   };
+ 
+  const onCaptionChange = (e:any) =>{
+    if (e.target.value){
+      console.log(e.target.value)
+      setCaption(e.target.value)
+      // need to call uploadImage here for captioning to work properly
+    }
+  }
 
   return (
     <div>
@@ -99,12 +109,22 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
               <Button variant="contained" component="label">
                 Upload Image
                 <input
+                  id='pictureInput'
                   type="file"
                   hidden
                   accept=".png,.jpeg,.jpg"
                   onChange={onImageChange}
                 />
               </Button>
+              <TextField
+                id="standard-multiline-static"
+                label="Enter Proof Caption"
+                multiline
+                rows={4}
+                defaultValue=""
+                variant="standard"
+                onChange={onCaptionChange}
+              />
               <Button
                 variant="contained"
                 disabled={!imageUploaded}
