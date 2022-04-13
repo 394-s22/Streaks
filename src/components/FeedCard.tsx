@@ -17,6 +17,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { UserInfo } from "../lib/types";
 import { getImageUrl } from "../utilities/firebaseStorage";
 import { useState, useEffect } from "react";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
 
 interface FeedCardProps {
   userInfo: UserInfo;
@@ -74,8 +77,14 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="send like">
           <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="send fire emoji">
+          <LocalFireDepartment />
+        </IconButton>
+        <IconButton aria-label="send thumbs up">
+          <ThumbUpIcon />
         </IconButton>
       </CardActions>
     </Card>
