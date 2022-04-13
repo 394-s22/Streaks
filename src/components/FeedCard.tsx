@@ -15,7 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { UserInfo } from "../lib/types";
-import {getImageUrl, getImageCaption} from '../utilities/firebaseStorage'
+import { getImageUrl, getImageCaption } from "../utilities/firebaseStorage";
 import { useState, useEffect } from "react";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -33,20 +33,19 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   groupId,
 }) => {
   const [imgUrl, setImgUrl] = useState("");
-  const [imgCaption, setImgCaption] = useState('');
+  const [imgCaption, setImgCaption] = useState("");
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
       setImgUrl(data);
     });
   }
-  function getImgCaption(){
+  function getImgCaption() {
     getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
-      console.log('this is metadata', data)
-      if(data.customMetadata){
-        setImgCaption(data.customMetadata.imgCaption)
+      console.log("this is metadata", data);
+      if (data.customMetadata) {
+        setImgCaption(data.customMetadata.imgCaption);
       }
-      
     });
   }
 
@@ -79,12 +78,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           day: "numeric",
         })}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={imgUrl}
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="194" image={imgUrl} alt="Proof" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {imgCaption}
