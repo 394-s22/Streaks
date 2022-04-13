@@ -1,22 +1,25 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { UserInfo } from '../lib/types';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { UserInfo } from "../lib/types";
 import {getImageUrl, getImageCaption} from '../utilities/firebaseStorage'
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
 
 interface FeedCardProps {
   userInfo: UserInfo;
@@ -24,13 +27,11 @@ interface FeedCardProps {
   groupId: string;
 }
 
-
 const FeedCard: React.FunctionComponent<FeedCardProps> = ({
-    userInfo,
-    currentDate,
-    groupId,
-  }) => {
-
+  userInfo,
+  currentDate,
+  groupId,
+}) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgCaption, setImgCaption] = useState('');
 
@@ -71,7 +72,12 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           </IconButton>
         }
         title={userInfo.name}
-        subheader="September 14, 2016"
+        subheader={new Date().toLocaleString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
       />
       <CardMedia
         component="img"
@@ -85,15 +91,18 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="send like">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="send fire emoji">
+          <LocalFireDepartment />
+        </IconButton>
+        <IconButton aria-label="send thumbs up">
+          <ThumbUpIcon />
         </IconButton>
       </CardActions>
     </Card>
   );
-}
+};
 
-export default FeedCard
+export default FeedCard;

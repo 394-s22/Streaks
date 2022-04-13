@@ -14,9 +14,12 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
   currentDate,
   group,
 }) => {
+  if (group.progress[currentDate].userIdsWhoCheckedIn.length === 1) {
+    return <h3>No one has checked in today.</h3>;
+  }
   return (
-    <div>
-      <Grid sx={{ flexGrow: 1 }} container spacing={2} padding={2}>
+    <div >
+      <Grid sx={{ flexGrow: 1}} container spacing={2} padding={3} display="flex" justifyContent="center">
         {userData.map((currUser) => {
           if (
             group.progress[currentDate].userIdsWhoCheckedIn.includes(
@@ -24,7 +27,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
             )
           ) {
             return (
-              <Grid item xs={4}>
+              <Grid item xs={4} display="flex" justifyContent="center">
                 <FeedCard
                   userInfo={currUser}
                   currentDate={currentDate}
