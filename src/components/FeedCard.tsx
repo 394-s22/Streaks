@@ -20,6 +20,8 @@ import { useState, useEffect } from "react";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
+var randomColor = require("randomcolor");
+
 
 interface FeedCardProps {
   userInfo: UserInfo;
@@ -61,7 +63,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
     <Card sx={{width:"100%", minWidth:200, maxWidth:400, margin:4, height:"fit-content"}}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: randomColor({luminosity:'dark'}) }} aria-label="recipe">
             {userInfo.name.charAt(0)}
           </Avatar>
         }
