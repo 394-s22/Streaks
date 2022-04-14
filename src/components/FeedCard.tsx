@@ -60,7 +60,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }, [imgCaption]);
 
   return (
-    <Card sx={{width:"100%", minWidth:200, maxWidth:400, margin:4, height:"fit-content"}}>
+    <Card sx={{width:"100%", minWidth:400, maxWidth:700, margin:4, height:"fit-content"}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: randomColor({luminosity:'dark'}) }} aria-label="recipe">

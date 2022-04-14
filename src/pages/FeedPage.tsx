@@ -20,7 +20,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
   }
   return (
     <Box margin={5} display="flex" justifyContent="center" >
-      <Box maxWidth={1200}>
+      <Box maxWidth={1600}>
         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={5} sx={{margin:0}} >
           {userData.map((currUser) => {
             if (
