@@ -58,7 +58,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }, [imgCaption]);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{width:"100%", minWidth:200, maxWidth:400, margin:4, height:"fit-content"}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -78,7 +78,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           day: "numeric",
         })}
       />
-      <CardMedia component="img" height="194" image={imgUrl} alt="Proof" />
+      <CardMedia component="img" image={imgUrl} alt="Proof" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {imgCaption}
