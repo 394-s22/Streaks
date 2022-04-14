@@ -13,10 +13,9 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import RuleIcon from '@mui/icons-material/Rule';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import RuleIcon from "@mui/icons-material/Rule";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import FeedPage from "./FeedPage";
-
 
 interface CheckinPageProps {
   currentGroup: string;
@@ -118,31 +117,31 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     return (
       <Box>
         <AppBar position="static" color="secondary">
-              <Toolbar variant="dense">
-                {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          <Toolbar variant="dense">
+            {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                   <MenuIcon />
                 </IconButton> */}
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  width="100%"
-                >
-                  <Typography variant="h6" color="inherit" component="div">
-                    Streaks
-                  </Typography>
-                  <Typography>
-                    {new Date().toLocaleString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </Typography>
-                </Box>
-              </Toolbar>
-            </AppBar>
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-between"
+              width="100%"
+            >
+              <Typography variant="h6" color="inherit" component="div">
+                Streaks
+              </Typography>
+              <Typography>
+                {new Date().toLocaleString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Typography>
+            </Box>
+          </Toolbar>
+        </AppBar>
         {pageNumber == 0 ? (
           <Box
             display="flex"
@@ -223,24 +222,24 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             </Box>
           </Box>
         ) : (
-          <FeedPage userData={usersData} currentDate={date} group={data}/>
+          <FeedPage userData={usersData} currentDate={date} group={data} />
         )}
-        <Paper 
-        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} 
-        elevation={10}
+        <Paper
+          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+          elevation={10}
         >
-        <BottomNavigation
-          showLabels
-          value={pageNumber}
-          onChange={(event, newValue) => {
-            setPageNumber(newValue);}} 
-        >
-          <BottomNavigationAction label="Check-In" icon={<RuleIcon />} />
-          <BottomNavigationAction label="Feed" icon={<EmojiPeopleIcon />} />
-        </BottomNavigation>
+          <BottomNavigation
+            showLabels
+            value={pageNumber}
+            onChange={(event, newValue) => {
+              setPageNumber(newValue);
+            }}
+          >
+            <BottomNavigationAction label="Check-In" icon={<RuleIcon />} />
+            <BottomNavigationAction label="Feed" icon={<EmojiPeopleIcon />} />
+          </BottomNavigation>
         </Paper>
       </Box>
-      
     );
   }
 };
