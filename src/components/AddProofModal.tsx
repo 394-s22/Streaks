@@ -13,7 +13,7 @@ const style = {
   width: "70%",
   maxWidth: 600,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   pt: 2,
   px: 4,
@@ -38,31 +38,31 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
   currentGroup,
 }) => {
   const [imageUploaded, setImageUploaded] = useState(false);
-  const [image, setImage] = useState("");
-  const [imgCaption, setCaption] = useState('')
+  const [image, setImage] = useState(null);
+  const [imgCaption, setCaption] = useState("");
 
   // SOURCE: https://stackoverflow.com/questions/43992427/how-to-display-a-image-selected-from-input-type-file-in-reactjs
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
+      setImage(event.target.files[0]);
       setImageUploaded(true);
-      uploadImage(
-        event.target.files[0],
-        currentUser,
-        currentDate,
-        currentGroup,
-        imgCaption
-      );
     }
   };
- 
-  const onCaptionChange = (e:any) =>{
-    if (e.target.value){
-      console.log(e.target.value)
-      setCaption(e.target.value)
-      // need to call uploadImage here for captioning to work properly
+
+  const onCaptionChange = (e: any) => {
+    if (e.target.value) {
+      console.log(e.target.value);
+      setCaption(e.target.value);
     }
-  }
+  };
+
+  const completeCheckInPhase = () => {
+    if (image != null) {
+      uploadImage(image, currentUser, currentDate, currentGroup, imgCaption);
+      handleClose();
+      handleCheckIn();
+    }
+  };
 
   return (
     <div>
@@ -103,11 +103,27 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                 variant="standard"
                 onChange={onCaptionChange}
               />
-              {image ? (
-                <img height={200} src={image} />
+              {image != null ? (
+                <Box
+                  height="250px"
+                  marginTop={2}
+                  marginBottom={2}
+                  sx={{ backgroundColor: "#ffffff" }}
+                  borderRadius={3}
+                >
+                  <img
+                    style={{
+                      height: "100%",
+                      margin: "auto",
+                      display: "block",
+                      borderRadius: "10px",
+                    }}
+                    src={URL.createObjectURL(image)}
+                  />
+                </Box>
               ) : (
                 <Box
-                  height="200px"
+                  height="250px"
                   marginTop={2}
                   marginBottom={2}
                   sx={{ backgroundColor: "#aaa" }}
@@ -118,7 +134,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
               <Button variant="contained" component="label">
                 Upload Image
                 <input
-                  id='pictureInput'
+                  id="pictureInput"
                   type="file"
                   hidden
                   accept=".png,.jpeg,.jpg"
@@ -129,10 +145,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
               <Button
                 variant="contained"
                 disabled={!imageUploaded}
-                onClick={() => {
-                  handleClose();
-                  handleCheckIn();
-                }}
+                onClick={completeCheckInPhase}
               >
                 Check In
               </Button>
