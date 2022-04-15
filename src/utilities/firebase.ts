@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 import { useState, useEffect } from "react";
 
@@ -14,7 +15,8 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const database = getDatabase(firebase);
+export const database = getDatabase(firebase);
+export const auth = getAuth(firebase);
 
 export const useData = (path: string, transform: (arg0: any) => void) => {
   const [data, setData] = useState();
