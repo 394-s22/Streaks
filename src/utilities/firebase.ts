@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 import { useState, useEffect } from "react";
 
@@ -14,9 +15,10 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const database = getDatabase(firebase);
+export const database = getDatabase(firebase);
+export const auth = getAuth(firebase);
 
-export const useData = (path: string, transform: (arg0: any) => void) => {
+export const useData = (path: string) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,7 +38,7 @@ export const useData = (path: string, transform: (arg0: any) => void) => {
         if (devMode) {
           console.log(val);
         }
-        setData(transform ? transform(val) : val);
+        setData(val);
         setLoading(false);
         setError("");
       },
@@ -46,7 +48,7 @@ export const useData = (path: string, transform: (arg0: any) => void) => {
         setError(error.message);
       }
     );
-  }, [path, transform]);
+  }, [path]);
 
   return [data, loading, error];
 };
