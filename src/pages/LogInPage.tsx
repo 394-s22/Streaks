@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -18,7 +18,9 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
       <Link to="/">
         <button>Back</button>
       </Link>
-
+      <div>
+        {JSON.stringify(user, null, 2)}
+      </div>
       <button
         onClick={async () => {
           const provider = new GoogleAuthProvider();
@@ -40,6 +42,13 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
         }}
       >
         Login with Google
+      </button>
+      <button 
+        onClick={async () => {
+          signOut(auth)
+        }}>
+        Logout 
+        
       </button>
     </div>
   );

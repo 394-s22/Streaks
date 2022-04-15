@@ -1,22 +1,22 @@
 import {useEffect, useState} from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { child, get, ref} from "firebase/database";
-import { auth, database } from "../utilities/firebase";
+import { auth, database, useData } from "../utilities/firebase";
 
 
 export const useCurrentUser = () => {
-    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [user, setUser] = useData(`users/${userId}`);
 
     useEffect(() => {
         const unsubscribed = onAuthStateChanged(auth, async (user) => {
             setLoading(true)
             if (user) {
-                const userDoc = await get(child(ref(database), `users/${user.uid}`));
-                setUser(userDoc.val())
+                setUserId(user.uid)
             }
             else {
-                setUser(null)
+                setUserId(null)
             }
             setLoading(false)
         })
