@@ -1,10 +1,11 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { IconButton, Typography, Icon } from "@mui/material";
+import { IconButton, Typography, Icon, Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Group, GroupMetaData, User, UserInfo } from "../lib/types";
 import ChatIcon from "@mui/icons-material/Chat";
+import { getImageUrl } from "../utilities/firebaseStorage";
 
 interface UserCardProps {
   user: UserInfo;
@@ -24,6 +25,9 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
   const progress = group.progress;
   console.log(date);
   console.log(group.progress[date]);
+
+  const [proofOpen, setProofOpen] = useState(false);
+
   let medals = [
     <Typography role="img" fontSize={30}>
       🥇
@@ -41,7 +45,6 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
       flexDirection="row"
       justifyContent="flex-start"
       alignItems="center"
-      width="100%"
       maxWidth="600px"
     >
       <Box
@@ -50,8 +53,16 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
         alignItems="center"
         justifyContent="space-between"
         width="100%"
+        maxWidth="400px"
       >
-        <Box display="flex" flexDirection="row" alignItems="center">
+        <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
+          maxWidth="250px"
+          width="100%"
+        >
           <Box sx={{ p: 1 }}>
             {position <= 2 ? medals[position] : <Box width={30}></Box>}
           </Box>
@@ -73,17 +84,10 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
             </Typography>
             <Typography>
               Streak: {group.streaks[user.id]} day
-              {group.streaks[user.id] == 1 ? "" : "s"}
+              {group.streaks[user.id] === 1 ? "" : "s"}
             </Typography>
           </Box>
         </Box>
-        {user.id === currentUser ? (
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-        ) : (
-          <IconButton>👏</IconButton>
-        )}
       </Box>
     </Box>
   );
