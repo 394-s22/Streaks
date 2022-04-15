@@ -3,6 +3,7 @@ import { child, get, ref, set } from "firebase/database";
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth, database } from "../utilities/firebase";
+import { useCurrentUser} from "../utilities/useCurrentUser"
 
 interface LogInPageProps {
   currentUser: string;
@@ -11,6 +12,7 @@ interface LogInPageProps {
 const LogInPage: React.FunctionComponent<LogInPageProps> = ({
   currentUser,
 }) => {
+  const {user, loading} = useCurrentUser();
   return (
     <div>
       <Link to="/">
