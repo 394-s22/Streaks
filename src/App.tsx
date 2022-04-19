@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
+
 import { Route, Routes } from "react-router-dom";
 
 import * as data from "./data";
@@ -16,8 +19,10 @@ const App: React.FunctionComponent = () => {
   return (
     <div className="App">
       <Routes>
+
         {/* <Route path="/" element={<LandingPage currentUser={currUser} />} /> */}
         {/* <Route path="/groups" element={<GroupsPage currentUser={currUser} />} /> */}
+
         <Route
           path="/checkin"
           element={
@@ -28,7 +33,9 @@ const App: React.FunctionComponent = () => {
             />
           }
         />
+
         <Route path="/" element={<LogInPage currentUser={currUser} />} />
+
       </Routes>
     </div>
   );

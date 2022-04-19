@@ -18,6 +18,7 @@ const firebase = initializeApp(firebaseConfig);
 export const auth = getAuth(firebase);
 export const database = getDatabase(firebase);
 
+
 export const useData = (path: string) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
