@@ -1,13 +1,18 @@
+// @ts-nocheck
+// import { database, useData } from "../utilities/firebase";
 
-import { useEffect, useState } from "react";
-import { database, useData } from "../utilities/firebase";
+export const useCurrentGroups = (userId: string) => {
+  console.log("user id", userId)
+  // const [groups, groupLoading, error] = useData(`/groups/`);
+  // var userGroups = {}
+  // if (groups){
+  //   // // eslint-disable-next-line
+  //   // userGroups = Object.values(groups).filter((group) => { 
+      
 
-export const useCurrentUser = () => {
-  const [loading, setLoading] = useState(true);
-    const [groups, setGroups] = useData(`groups/`);
+  //   //   {group.memberIds.includes(userId)}
+  //   // })
+  //   console.log(groups)
+  // }
 
-  useEffect(() => {
-
-  }, []);
-  return { groups };
 };
