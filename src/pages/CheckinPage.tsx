@@ -36,7 +36,6 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   let navigate = useNavigate();
 
   if (1 != 1) {
-
   }
 
   // Adds the current date to database (with an array with just an empty string)
@@ -144,16 +143,16 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
                 })}
               </Typography>
             </Box>
-              <Button
-                onClick={async () => {
+            <Button
+              onClick={async () => {
                 signOut(auth);
                 navigate("/");
               }}
               variant="contained"
-              sx={{ml: 2}}
-              >
-                Logout
-              </Button>
+              sx={{ ml: 2 }}
+            >
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
         {pageNumber === 0 ? (
@@ -222,6 +221,9 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               ) : (
                 <>
                   <Typography>You have checked in today 🙌</Typography>
+                  <Button onClick={() => handleUndoCheckIn()}>
+                    Undo Check In
+                  </Button>
                   {/* <Typography>
                     {" "}
                     $
