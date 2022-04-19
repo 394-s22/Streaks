@@ -130,7 +130,11 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         <Chip
           icon={<FavoriteIcon />}
           label={`x${countLikes(userInfo.id)}`}
-          variant={userHasLiked(userInfo.id) ? "filled" : "outlined"}
+          variant={
+            userHasLiked(userInfo.id) && userInfo.id !== currentUser
+              ? "filled"
+              : "outlined"
+          }
           clickable={userInfo.id !== currentUser}
           color="secondary"
           onClick={() => reactToPost(userInfo.id)}
