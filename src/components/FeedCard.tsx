@@ -39,7 +39,6 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }
   function getImgCaption() {
     getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
-      console.log("this is metadata", data);
       if (data.customMetadata) {
         setImgCaption(data.customMetadata.imgCaption);
       }
@@ -50,15 +49,12 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
     let oldList = progress.userReactions[postUser].likes;
     if (userHasLiked(postUser)) {
       oldList.splice(oldList.indexOf(currentUser));
-      console.log(oldList);
       await setData(
         `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
         oldList
       ).catch((e) => alert(e));
     } else {
       oldList.push(currentUser);
-      console.log("2");
-      console.log(oldList);
       await setData(
         `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
         oldList
@@ -79,7 +75,6 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
     try {
       // subtract 1 like because array includes the user themselves
       let numLikes = progress.userReactions[postUser].likes.length - 1;
-      console.log(numLikes);
       return numLikes;
     } catch {
       return 0;

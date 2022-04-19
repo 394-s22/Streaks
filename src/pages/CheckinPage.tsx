@@ -54,7 +54,6 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       let new_list = data.progress[date].userIdsWhoCheckedIn;
       console.log(new_list);
       new_list.push(currentUser);
-      console.log(date);
       let likes_arr = [currentUser];
       await setData(
         `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
