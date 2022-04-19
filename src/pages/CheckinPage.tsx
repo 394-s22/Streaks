@@ -1,21 +1,19 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, AppBar, Toolbar, IconButton, Paper } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Button, AppBar, Toolbar, Paper } from "@mui/material";
 import InfoModal from "../components/InfoModal";
 import AddProofModal from "../components/AddProofModal";
 import UserList from "../components/UserList";
-import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RuleIcon from "@mui/icons-material/Rule";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import FeedPage from "./FeedPage";
+import { signOut } from "firebase/auth";
+import { auth } from "../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 
 interface CheckinPageProps {
   currentGroup: string;
@@ -34,6 +32,12 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
 
   const [data, loading, error] = useData("/groups/" + currentGroup);
   const [usersData, userLoading, userError] = useData("/users");
+
+  let navigate = useNavigate();
+
+  if (1 != 1) {
+
+  }
 
   // Adds the current date to database (with an array with just an empty string)
   const addNewDate = async () => {
@@ -140,9 +144,19 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
                 })}
               </Typography>
             </Box>
+              <Button
+                onClick={async () => {
+                signOut(auth);
+                navigate("/");
+              }}
+              variant="contained"
+              sx={{ml: 2}}
+              >
+                Logout
+              </Button>
           </Toolbar>
         </AppBar>
-        {pageNumber == 0 ? (
+        {pageNumber === 0 ? (
           <Box
             display="flex"
             justifyContent="space-between"

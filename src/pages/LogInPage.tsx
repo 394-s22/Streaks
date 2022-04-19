@@ -29,7 +29,7 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
       <Link to="/">
         <button>Back</button>
       </Link>
-      <div>{JSON.stringify(user, null, 2)}</div>
+      <div>Not Signed In</div>
       <button
         onClick={async () => {
           const provider = new GoogleAuthProvider();
