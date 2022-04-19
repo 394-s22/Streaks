@@ -1,13 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
-
-import { Route, Routes } from "react-router-dom";
-
-import * as data from "./data";
 import LogInPage from "./pages/LogInPage";
+import GroupsPage from "./pages/GroupsPage";
+
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
@@ -21,7 +18,7 @@ const App: React.FunctionComponent = () => {
       <Routes>
 
         {/* <Route path="/" element={<LandingPage currentUser={currUser} />} /> */}
-        {/* <Route path="/groups" element={<GroupsPage currentUser={currUser} />} /> */}
+        <Route path="/groups" element={<GroupsPage currentUser={currUser} />} />
 
         <Route
           path="/checkin"

@@ -1,11 +1,9 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, AppBar, Toolbar, IconButton } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Button, AppBar, Toolbar } from "@mui/material";
 import InfoModal from "../components/InfoModal";
 import UserList from "../components/UserList";
-import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
 
 interface CheckinPageProps {

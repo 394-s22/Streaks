@@ -19,7 +19,7 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
   let navigate = useNavigate();
 
   if (user) {
-    navigate("/checkin");
+    navigate("/groups");
   }
 
   if (loading) {
