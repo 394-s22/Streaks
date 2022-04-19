@@ -32,8 +32,8 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   const [proofOpen, setProofOpen] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
 
-  const [data, loading, error] = useData("/groups/" + currentGroup, null);
-  const [usersData, userLoading, userError] = useData("/users", null);
+  const [data, loading, error] = useData("/groups/" + currentGroup);
+  const [usersData, userLoading, userError] = useData("/users");
 
   // Adds the current date to database (with an array with just an empty string)
   const addNewDate = async () => {
