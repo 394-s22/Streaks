@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
 
+
 interface LogInPageProps {
   currentUser: string;
 }
@@ -12,6 +13,7 @@ interface LogInPageProps {
 const LogInPage: React.FunctionComponent<LogInPageProps> = ({
   currentUser,
 }) => {
+
   const { user, loading } = useCurrentUser();
 
   let navigate = useNavigate();
@@ -52,12 +54,14 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
       >
         Login with Google
       </button>
+
       <button
         onClick={async () => {
           signOut(auth);
         }}
       >
         Logout
+
       </button>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { child, get, ref } from "firebase/database";
@@ -24,3 +25,4 @@ export const useCurrentUser = () => {
   }, []);
   return { user, loading };
 };
+
