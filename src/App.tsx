@@ -4,9 +4,6 @@ import "./App.css";
 import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
 
-import { Route, Routes } from "react-router-dom";
-
-import * as data from "./data";
 import LogInPage from "./pages/LogInPage";
 
 const App: React.FunctionComponent = () => {
