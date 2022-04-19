@@ -1,18 +1,13 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import { Box, Button, AppBar, Toolbar, IconButton, Paper } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Button, AppBar, Toolbar, Paper } from "@mui/material";
 import InfoModal from "../components/InfoModal";
 import AddProofModal from "../components/AddProofModal";
 import UserList from "../components/UserList";
-import { Group, GroupMetaData, User } from "../lib/types";
 import { useData, setData } from "../utilities/firebase";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RuleIcon from "@mui/icons-material/Rule";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import FeedPage from "./FeedPage";
@@ -40,9 +35,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     await setData(
       `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
       [""]
-    ).then(() => {
-      console.log("test");
-    });
+    );
   };
 
   if (loading || userLoading) {
@@ -62,9 +55,14 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       console.log(new_list);
       new_list.push(currentUser);
       console.log(date);
+      let likes_arr = [currentUser];
       await setData(
         `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
         new_list
+      ).catch((e) => alert(e));
+      await setData(
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/likes`,
+        likes_arr
       ).catch((e) => alert(e));
       await setData(
         `/groups/${currentGroup}/streaks/${currentUser}`,
@@ -222,7 +220,12 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             </Box>
           </Box>
         ) : (
-          <FeedPage userData={usersData} currentDate={date} group={data} />
+          <FeedPage
+            userData={usersData}
+            currentDate={date}
+            group={data}
+            currentUser={currentUser}
+          />
         )}
         <Paper
           sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}

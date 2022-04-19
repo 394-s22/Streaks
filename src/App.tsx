@@ -3,12 +3,11 @@ import "./App.css";
 import CheckinPage from "./pages/CheckinPage";
 import { Route, Routes } from "react-router-dom";
 
-import * as data from "./data";
 import LogInPage from "./pages/LogInPage";
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
-  const currUser = "2";
+  const currUser = "3";
 
   // Current date in the form YYYY-MM-DD
   const date = new Date().toISOString().substring(0, 10);

@@ -2,26 +2,32 @@ import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import FeedCard from "../components/FeedCard";
 import { GroupMetaData, UserInfo } from "../lib/types";
-import Masonry from '@mui/lab/Masonry';
+import Masonry from "@mui/lab/Masonry";
 
 interface FeedPageProps {
   userData: UserInfo[];
   currentDate: string;
   group: GroupMetaData;
+  currentUser: string;
 }
 
 const FeedPage: React.FunctionComponent<FeedPageProps> = ({
   userData,
   currentDate,
   group,
+  currentUser,
 }) => {
   if (group.progress[currentDate].userIdsWhoCheckedIn.length === 1) {
     return <h3>No one has checked in today.</h3>;
   }
   return (
-    <Box margin={5} display="flex" justifyContent="center" >
+    <Box margin={5} display="flex" justifyContent="center">
       <Box maxWidth={1600}>
-        <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={5} sx={{margin:0}} >
+        <Masonry
+          columns={{ xs: 1, sm: 2, md: 3 }}
+          spacing={5}
+          sx={{ margin: 0 }}
+        >
           {Object.values(userData).map((currUser) => {
             if (
               group.progress[currentDate].userIdsWhoCheckedIn.includes(
@@ -29,11 +35,13 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
               )
             ) {
               return (
-                  <FeedCard
-                    userInfo={currUser}
-                    currentDate={currentDate}
-                    groupId={group.groupId}
-                  />
+                <FeedCard
+                  userInfo={currUser}
+                  currentDate={currentDate}
+                  groupId={group.groupId}
+                  progress={group.progress[currentDate]}
+                  currentUser={currentUser}
+                />
               );
             }
           })}

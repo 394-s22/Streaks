@@ -1,4 +1,4 @@
-export type Group =  Record<string, GroupMetaData>;
+export type Group = Record<string, GroupMetaData>;
 
 export type GroupMetaData = {
   description: string;
@@ -15,8 +15,13 @@ export type GroupMetaData = {
   streaks: Record<string, number>;
 };
 
-type GroupProgress = {
+export type GroupProgress = {
   userIdsWhoCheckedIn: string[];
+  userReactions: Record<string, Reactions>;
+};
+
+type Reactions = {
+  likes: string[];
 };
 
 export type User = Record<string, UserInfo>;
