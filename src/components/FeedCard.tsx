@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
+import { Chip } from "@mui/material";
 var randomColor = require("randomcolor");
 
 
@@ -87,9 +88,8 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="send like">
-          <FavoriteIcon />
-        </IconButton>
+        <Chip icon={<FavoriteIcon />} label="With Icon" variant="outlined" />
+        
         <IconButton aria-label="send fire emoji">
           <LocalFireDepartment />
         </IconButton>
