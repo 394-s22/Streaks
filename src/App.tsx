@@ -7,7 +7,7 @@ import LogInPage from "./pages/LogInPage";
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
-  const currUser = "3";
+  const currUser = "2";
 
   // Current date in the form YYYY-MM-DD
   const date = new Date().toISOString().substring(0, 10);
