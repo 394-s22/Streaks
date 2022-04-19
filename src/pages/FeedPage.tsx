@@ -22,7 +22,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
     <Box margin={5} display="flex" justifyContent="center" >
       <Box maxWidth={1600}>
         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={5} sx={{margin:0}} >
-          {userData.map((currUser) => {
+          {Object.values(userData).map((currUser) => {
             if (
               group.progress[currentDate].userIdsWhoCheckedIn.includes(
                 currUser.id

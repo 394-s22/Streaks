@@ -3,10 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
-import GroupsPage from "./pages/GroupsPage";
-import LandingPage from "./pages/LandingPage";
+
+import { Route, Routes } from "react-router-dom";
+
+import * as data from "./data";
 import LogInPage from "./pages/LogInPage";
-import SignUpPage from "./pages/SignUpPage";
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
@@ -18,8 +19,10 @@ const App: React.FunctionComponent = () => {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<LandingPage currentUser={currUser} />} />
-        <Route path="/groups" element={<GroupsPage currentUser={currUser} />} />
+
+        {/* <Route path="/" element={<LandingPage currentUser={currUser} />} /> */}
+        {/* <Route path="/groups" element={<GroupsPage currentUser={currUser} />} /> */}
+
         <Route
           path="/checkin"
           element={
@@ -30,8 +33,9 @@ const App: React.FunctionComponent = () => {
             />
           }
         />
-        <Route path="/login" element={<LogInPage currentUser={currUser} />} />
-        <Route path="/signup" element={<SignUpPage currentUser={currUser} />} />
+
+        <Route path="/" element={<LogInPage currentUser={currUser} />} />
+
       </Routes>
     </div>
   );
