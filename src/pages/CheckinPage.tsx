@@ -119,7 +119,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       ).catch((e) => alert(e));
       // reset all likes
       for (const user in data.progress[date].userReactions) {
-        let temp_arr = [user];
+        let temp_arr = [""];
         await setData(
           `/groups/${currentGroup}/progress/${date}/userReactions/${user}/likes`,
           temp_arr

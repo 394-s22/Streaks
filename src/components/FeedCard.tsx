@@ -46,22 +46,20 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }
 
   const reactToPost = async (postUser: string) => {
-    if (userInfo.id !== currentUser) {
-      console.log(progress);
-      let oldList = progress.userReactions[postUser].likes;
-      if (userHasLiked(postUser)) {
-        oldList.splice(oldList.indexOf(currentUser), 1);
-        await setData(
-          `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
-          oldList
-        ).catch((e) => alert(e));
-      } else {
-        oldList.push(currentUser);
-        await setData(
-          `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
-          oldList
-        ).catch((e) => alert(e));
-      }
+    console.log(progress);
+    let oldList = progress.userReactions[postUser].likes;
+    if (userHasLiked(postUser)) {
+      oldList.splice(oldList.indexOf(currentUser), 1);
+      await setData(
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        oldList
+      ).catch((e) => alert(e));
+    } else {
+      oldList.push(currentUser);
+      await setData(
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        oldList
+      ).catch((e) => alert(e));
     }
   };
 
@@ -130,12 +128,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         <Chip
           icon={<FavoriteIcon />}
           label={`x${countLikes(userInfo.id)}`}
-          variant={
-            userHasLiked(userInfo.id) && userInfo.id !== currentUser
-              ? "filled"
-              : "outlined"
-          }
-          clickable={userInfo.id !== currentUser}
+          variant={userHasLiked(userInfo.id) ? "filled" : "outlined"}
           color="secondary"
           onClick={() => reactToPost(userInfo.id)}
         />
