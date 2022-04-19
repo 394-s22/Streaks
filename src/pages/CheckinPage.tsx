@@ -11,6 +11,9 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RuleIcon from "@mui/icons-material/Rule";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import FeedPage from "./FeedPage";
+import { signOut } from "firebase/auth";
+import { auth } from "../utilities/firebase";
+import { useNavigate } from "react-router-dom";
 
 interface CheckinPageProps {
   currentGroup: string;
@@ -29,6 +32,11 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
 
   const [data, loading, error] = useData("/groups/" + currentGroup);
   const [usersData, userLoading, userError] = useData("/users");
+
+  let navigate = useNavigate();
+
+  if (1 != 1) {
+  }
 
   // Adds the current date to database (with an array with just an empty string)
   const addNewDate = async () => {
@@ -137,9 +145,19 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
                 })}
               </Typography>
             </Box>
+            <Button
+              onClick={async () => {
+                signOut(auth);
+                navigate("/");
+              }}
+              variant="contained"
+              sx={{ ml: 2 }}
+            >
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
-        {pageNumber == 0 ? (
+        {pageNumber === 0 ? (
           <Box
             display="flex"
             justifyContent="space-between"
@@ -205,6 +223,9 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               ) : (
                 <>
                   <Typography>You have checked in today 🙌</Typography>
+                  <Button onClick={() => handleUndoCheckIn()}>
+                    Undo Check In
+                  </Button>
                   {/* <Typography>
                     {" "}
                     $
