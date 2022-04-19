@@ -132,6 +132,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           label={`x${countLikes(userInfo.id)}`}
           variant={userHasLiked(userInfo.id) ? "filled" : "outlined"}
           clickable={userInfo.id !== currentUser}
+          color="secondary"
           onClick={() => reactToPost(userInfo.id)}
         />
       </CardActions>
