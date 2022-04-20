@@ -1,35 +1,33 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { UserInfo } from "../lib/types";
+import { UserInfo, GroupProgress } from "../lib/types";
 import { getImageUrl, getImageCaption } from "../utilities/firebaseStorage";
 import { useState, useEffect } from "react";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
+import { Chip } from "@mui/material";
+import { setData } from "../utilities/firebase";
 var randomColor = require("randomcolor");
 
 interface FeedCardProps {
   userInfo: UserInfo;
   currentDate: string;
   groupId: string;
+  progress: GroupProgress;
+  currentUser: string;
 }
 
 const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   userInfo,
   currentDate,
   groupId,
+  progress,
+  currentUser,
 }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgCaption, setImgCaption] = useState("");
@@ -41,12 +39,48 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }
   function getImgCaption() {
     getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
-      console.log("this is metadata", data);
       if (data.customMetadata) {
         setImgCaption(data.customMetadata.imgCaption);
       }
     });
   }
+
+  const reactToPost = async (postUser: string) => {
+    console.log(progress);
+    let oldList = progress.userReactions[postUser].likes;
+    if (userHasLiked(postUser)) {
+      oldList.splice(oldList.indexOf(currentUser), 1);
+      await setData(
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        oldList
+      ).catch((e) => alert(e));
+    } else {
+      oldList.push(currentUser);
+      await setData(
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        oldList
+      ).catch((e) => alert(e));
+    }
+  };
+
+  const userHasLiked = (postUser: string) => {
+    try {
+      let usersWhoLiked = progress.userReactions[postUser].likes;
+      return usersWhoLiked.includes(currentUser);
+    } catch {
+      return false;
+    }
+  };
+
+  const countLikes = (postUser: string) => {
+    try {
+      // subtract 1 like because array includes the user themselves
+      let numLikes = progress.userReactions[postUser].likes.length - 1;
+      return numLikes;
+    } catch {
+      return 0;
+    }
+  };
 
   useEffect(() => {
     getImgUrl();
@@ -75,11 +109,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
             {userInfo.name.charAt(0)}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        action={<></>}
         title={userInfo.name}
         subheader={new Date().toLocaleString("en-US", {
           weekday: "long",
@@ -94,16 +124,14 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           {imgCaption}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="send like">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="send fire emoji">
-          <LocalFireDepartment />
-        </IconButton>
-        <IconButton aria-label="send thumbs up">
-          <ThumbUpIcon />
-        </IconButton>
+      <CardActions>
+        <Chip
+          icon={<FavoriteIcon />}
+          label={`x${countLikes(userInfo.id)}`}
+          variant={userHasLiked(userInfo.id) ? "filled" : "outlined"}
+          color="secondary"
+          onClick={() => reactToPost(userInfo.id)}
+        />
       </CardActions>
     </Card>
   );

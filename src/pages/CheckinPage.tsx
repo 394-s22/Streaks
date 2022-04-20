@@ -43,9 +43,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     await setData(
       `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
       [""]
-    ).then(() => {
-      console.log("test");
-    });
+    );
   };
 
   if (loading || userLoading) {
@@ -64,10 +62,14 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       let new_list = data.progress[date].userIdsWhoCheckedIn;
       console.log(new_list);
       new_list.push(currentUser);
-      console.log(date);
+      let temp_arr = [""];
       await setData(
         `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
         new_list
+      ).catch((e) => alert(e));
+      await setData(
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/likes`,
+        temp_arr
       ).catch((e) => alert(e));
       await setData(
         `/groups/${currentGroup}/streaks/${currentUser}`,
@@ -115,6 +117,14 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
         `/groups/${currentGroup}/streaks/${currentUser}`,
         data.streaks[currentUser] - 1
       ).catch((e) => alert(e));
+      // reset all likes
+      for (const user in data.progress[date].userReactions) {
+        let temp_arr = [""];
+        await setData(
+          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/likes`,
+          temp_arr
+        ).catch((e) => alert(e));
+      }
     };
 
     return (
@@ -238,7 +248,12 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             </Box>
           </Box>
         ) : (
-          <FeedPage userData={usersData} currentDate={date} group={data} />
+          <FeedPage
+            userData={usersData}
+            currentDate={date}
+            group={data}
+            currentUser={currentUser}
+          />
         )}
         <Paper
           sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
