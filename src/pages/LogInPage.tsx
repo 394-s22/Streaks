@@ -1,10 +1,11 @@
+import { Google } from "@mui/icons-material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
-
 
 interface LogInPageProps {
   currentUser: string;
@@ -13,7 +14,6 @@ interface LogInPageProps {
 const LogInPage: React.FunctionComponent<LogInPageProps> = ({
   currentUser,
 }) => {
-
   const { user, loading } = useCurrentUser();
 
   let navigate = useNavigate();
@@ -26,45 +26,66 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
     return <p>Loading...</p>;
   }
 
-  return (
-    <div>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-      <div>Not Signed In</div>
-      <button
-        onClick={async () => {
-          const provider = new GoogleAuthProvider();
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
 
-          const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
 
-          const path = `users/${result.user.uid}`;
+    const path = `users/${result.user.uid}`;
 
-          const userDoc = await get(child(ref(database), path));
+    const userDoc = await get(child(ref(database), path));
 
-          if (!userDoc.exists()) {
-            await set(ref(database, path), {
-              name: result.user.displayName,
-              email: result.user.email,
-              avatarUrl: result.user.photoURL,
-              id: result.user.uid,
-            });
-          }
-        }}
-      >
-        Login with Google
-      </button>
+    if (!userDoc.exists()) {
+      await set(ref(database, path), {
+        name: result.user.displayName,
+        email: result.user.email,
+        avatarUrl: result.user.photoURL,
+        id: result.user.uid,
+      });
+    }
+  };
 
-      <button
-        onClick={async () => {
-          signOut(auth);
-        }}
-      >
-        Logout
-
-      </button>
-    </div>
+  const loginCard = (
+    <Paper
+      elevation={3}
+      style={{
+        borderRadius: "10px",
+        maxWidth: "400px",
+        margin: "auto",
+        textAlign: "center",
+        top: "100px",
+        position: "relative",
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h4">Please sign in</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" onClick={handleLogin} color="secondary">
+            Sign in with <Google style={{ paddingLeft: "5px" }} />
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="outlined"
+            onClick={async () => {
+              signOut(auth);
+            }}
+            style={{
+              marginBottom: "30px",
+              width: "155px",
+            }}
+            color="secondary"
+          >
+            Logout
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
   );
+
+  return <div>{loginCard}</div>;
 };
 
 export default LogInPage;

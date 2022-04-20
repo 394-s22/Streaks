@@ -5,11 +5,9 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -21,7 +19,6 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { LocalFireDepartment, ThumbUp } from "@mui/icons-material";
 var randomColor = require("randomcolor");
-
 
 interface FeedCardProps {
   userInfo: UserInfo;
@@ -60,10 +57,21 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   }, [imgCaption]);
 
   return (
-    <Card sx={{width:"100%", minWidth:400, maxWidth:700, margin:4, height:"fit-content"}}>
+    <Card
+      sx={{
+        width: "100%",
+        minWidth: 400,
+        maxWidth: 700,
+        margin: 4,
+        height: "fit-content",
+      }}
+    >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: randomColor({luminosity:'dark'}) }} aria-label="recipe">
+          <Avatar
+            sx={{ bgcolor: randomColor({ luminosity: "dark" }) }}
+            aria-label="recipe"
+          >
             {userInfo.name.charAt(0)}
           </Avatar>
         }
