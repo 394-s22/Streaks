@@ -21,7 +21,9 @@ export type GroupProgress = {
 };
 
 type Reactions = {
-  likes: string[];
+  Like: string[];
+  Fire: string[];
+  Wow: string[];
 };
 
 export type User = Record<string, UserInfo>;

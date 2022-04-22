@@ -25,17 +25,17 @@ const ReactionButton: React.FunctionComponent<ReactionButtonProps> = ({
 }) => {
   const reactToPost = async (postUser: string) => {
     console.log(progress);
-    let oldList = progress.userReactions[postUser].likes;
+    let oldList = progress.userReactions[postUser][iconType];
     if (userHasLiked(postUser)) {
       oldList.splice(oldList.indexOf(currentUser), 1);
       await setData(
-        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/${iconType}`,
         oldList
       ).catch((e) => alert(e));
     } else {
       oldList.push(currentUser);
       await setData(
-        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
+        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/${iconType}`,
         oldList
       ).catch((e) => alert(e));
     }
@@ -43,7 +43,7 @@ const ReactionButton: React.FunctionComponent<ReactionButtonProps> = ({
 
   const userHasLiked = (postUser: string) => {
     try {
-      let usersWhoLiked = progress.userReactions[postUser].likes;
+      let usersWhoLiked = progress.userReactions[postUser][iconType];
       return usersWhoLiked.includes(currentUser);
     } catch {
       return false;
@@ -53,7 +53,7 @@ const ReactionButton: React.FunctionComponent<ReactionButtonProps> = ({
   const countLikes = (postUser: string) => {
     try {
       // subtract 1 like because array includes the user themselves
-      let numLikes = progress.userReactions[postUser].likes.length - 1;
+      let numLikes = progress.userReactions[postUser][iconType].length - 1;
       return numLikes;
     } catch {
       return 0;

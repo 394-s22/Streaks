@@ -68,7 +68,15 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
         new_list
       ).catch((e) => alert(e));
       await setData(
-        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/likes`,
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Like`,
+        temp_arr
+      ).catch((e) => alert(e));
+      await setData(
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Fire`,
+        temp_arr
+      ).catch((e) => alert(e));
+      await setData(
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Wow`,
         temp_arr
       ).catch((e) => alert(e));
       await setData(
@@ -121,7 +129,15 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
       for (const user in data.progress[date].userReactions) {
         let temp_arr = [""];
         await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/likes`,
+          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Like`,
+          temp_arr
+        ).catch((e) => alert(e));
+        await setData(
+          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Fire`,
+          temp_arr
+        ).catch((e) => alert(e));
+        await setData(
+          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Wow`,
           temp_arr
         ).catch((e) => alert(e));
       }

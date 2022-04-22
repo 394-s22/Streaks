@@ -96,6 +96,22 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
           currentUser={currentUser}
           iconType={"Like"}
         />
+        <ReactionButton
+          userInfo={userInfo}
+          currentDate={currentDate}
+          groupId={groupId}
+          progress={progress}
+          currentUser={currentUser}
+          iconType={"Fire"}
+        />
+        <ReactionButton
+          userInfo={userInfo}
+          currentDate={currentDate}
+          groupId={groupId}
+          progress={progress}
+          currentUser={currentUser}
+          iconType={"Wow"}
+        />
       </CardActions>
     </Card>
   );
