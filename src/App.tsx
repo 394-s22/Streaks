@@ -5,6 +5,9 @@ import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
 
 import LogInPage from "./pages/LogInPage";
+import GroupCreationPage from "./pages/GroupCreationPage";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
@@ -14,27 +17,29 @@ const App: React.FunctionComponent = () => {
   const date = new Date().toISOString().substring(0, 10);
 
   return (
-    <div className="App">
-      <Routes>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <div className="App">
+        <Routes>
+          {/* <Route path="/" element={<LandingPage currentUser={currUser} />} /> */}
+          {/* <Route path="/groups" element={<GroupsPage currentUser={currUser} />} /> */}
 
-        {/* <Route path="/" element={<LandingPage currentUser={currUser} />} /> */}
-        {/* <Route path="/groups" element={<GroupsPage currentUser={currUser} />} /> */}
+          <Route
+            path="/checkin"
+            element={
+              <CheckinPage
+                currentGroup={currGroup}
+                currentUser={currUser}
+                date={date}
+              />
+            }
+          />
 
-        <Route
-          path="/checkin"
-          element={
-            <CheckinPage
-              currentGroup={currGroup}
-              currentUser={currUser}
-              date={date}
-            />
-          }
-        />
+          <Route path="/" element={<LogInPage currentUser={currUser} />} />
 
-        <Route path="/" element={<LogInPage currentUser={currUser} />} />
-
-      </Routes>
-    </div>
+          <Route path="/creategroup" element={<GroupCreationPage />} />
+        </Routes>
+      </div>
+    </LocalizationProvider>
   );
 };
 
