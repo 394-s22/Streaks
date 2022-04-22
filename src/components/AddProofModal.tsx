@@ -94,15 +94,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
               flexDirection="column"
             >
               <Typography variant="h3">Upload Your Proof</Typography>
-              <TextField
-                id="standard-multiline-static"
-                label="Enter Proof Caption"
-                multiline
-                rows={2}
-                defaultValue=""
-                variant="standard"
-                onChange={onCaptionChange}
-              />
+
               {image != null ? (
                 <Box
                   height="250px"
@@ -130,7 +122,15 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   borderRadius={3}
                 ></Box>
               )}
-
+              <TextField
+                id="standard-multiline-static"
+                label="Enter Proof Caption"
+                multiline
+                rows={2}
+                defaultValue=""
+                variant="standard"
+                onChange={onCaptionChange}
+              />
               <Button variant="contained" component="label">
                 Upload Image
                 <input
