@@ -3,7 +3,6 @@ import Modal from "@mui/material/Modal";
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import { uploadImage } from "../utilities/firebaseStorage";
-import { FireExtinguisher } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -51,7 +50,6 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
 
   const onCaptionChange = (e: any) => {
     if (e.target.value) {
-      console.log(e.target.value);
       setCaption(e.target.value);
     }
   };
@@ -124,19 +122,24 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   alignItems="center"
                   justifyContent="center"
                 >
-                    <Typography fontSize="1.5rem" color="#444">No image has been uploaded yet...</Typography>
+                  <Typography fontSize="1.25rem" color="#444">No image has been uploaded yet...</Typography>
                 </Box>
               )}
               <TextField
                 id="standard-multiline-static"
                 label="Enter Proof Caption"
-                multiline
-                rows={2}
                 defaultValue=""
                 variant="standard"
                 onChange={onCaptionChange}
+                sx={{ mb: "1rem" }}
               />
-              <Button variant="contained" component="label">
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+              <Button variant="contained" component="label" style={{minWidth:"49%"}}>
                 Upload Image
                 <input
                   id="pictureInput"
@@ -144,18 +147,22 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   hidden
                   accept=".png,.jpeg,.jpg"
                   onChange={onImageChange}
+
                 />
               </Button>
 
               <Button
                 variant="contained"
                 disabled={!imageUploaded}
+                sx={{ minWidth: "49%"}}
                 onClick={completeCheckInPhase}
+                color="success"
               >
                 Check In
               </Button>
-              <hr />
-              <Button variant="outlined" onClick={handleClose}>
+
+              </Box>
+              <Button variant="outlined" onClick={handleClose} sx={{ mt: "0.5rem" }}>
                 Close
               </Button>
             </Box>
