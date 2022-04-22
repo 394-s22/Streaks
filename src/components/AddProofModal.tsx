@@ -120,7 +120,12 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   marginBottom={2}
                   sx={{ backgroundColor: "#aaa" }}
                   borderRadius={3}
-                ></Box>
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                    <Typography fontSize="1.5rem" color="#444">No image has been uploaded yet...</Typography>
+                </Box>
               )}
               <TextField
                 id="standard-multiline-static"
