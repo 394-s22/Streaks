@@ -6,12 +6,12 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { UserInfo, GroupProgress } from "../lib/types";
 import { getImageUrl, getImageCaption } from "../utilities/firebaseStorage";
 import { useState, useEffect } from "react";
 import { Chip } from "@mui/material";
 import { setData } from "../utilities/firebase";
+import ReactionButton from "./ReactionButton";
 var randomColor = require("randomcolor");
 
 interface FeedCardProps {
@@ -44,43 +44,6 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
       }
     });
   }
-
-  const reactToPost = async (postUser: string) => {
-    console.log(progress);
-    let oldList = progress.userReactions[postUser].likes;
-    if (userHasLiked(postUser)) {
-      oldList.splice(oldList.indexOf(currentUser), 1);
-      await setData(
-        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
-        oldList
-      ).catch((e) => alert(e));
-    } else {
-      oldList.push(currentUser);
-      await setData(
-        `/groups/${groupId}/progress/${currentDate}/userReactions/${postUser}/likes`,
-        oldList
-      ).catch((e) => alert(e));
-    }
-  };
-
-  const userHasLiked = (postUser: string) => {
-    try {
-      let usersWhoLiked = progress.userReactions[postUser].likes;
-      return usersWhoLiked.includes(currentUser);
-    } catch {
-      return false;
-    }
-  };
-
-  const countLikes = (postUser: string) => {
-    try {
-      // subtract 1 like because array includes the user themselves
-      let numLikes = progress.userReactions[postUser].likes.length - 1;
-      return numLikes;
-    } catch {
-      return 0;
-    }
-  };
 
   useEffect(() => {
     getImgUrl();
@@ -125,12 +88,29 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
         </Typography>
       </CardContent>
       <CardActions>
-        <Chip
-          icon={<FavoriteIcon />}
-          label={`x${countLikes(userInfo.id)}`}
-          variant={userHasLiked(userInfo.id) ? "filled" : "outlined"}
-          color="secondary"
-          onClick={() => reactToPost(userInfo.id)}
+        <ReactionButton
+          userInfo={userInfo}
+          currentDate={currentDate}
+          groupId={groupId}
+          progress={progress}
+          currentUser={currentUser}
+          iconType={"Like"}
+        />
+        <ReactionButton
+          userInfo={userInfo}
+          currentDate={currentDate}
+          groupId={groupId}
+          progress={progress}
+          currentUser={currentUser}
+          iconType={"Fire"}
+        />
+        <ReactionButton
+          userInfo={userInfo}
+          currentDate={currentDate}
+          groupId={groupId}
+          progress={progress}
+          currentUser={currentUser}
+          iconType={"Wow"}
         />
       </CardActions>
     </Card>
