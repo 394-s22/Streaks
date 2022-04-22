@@ -108,6 +108,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                       display: "block",
                       borderRadius: "10px",
                     }}
+                    alt=""
                     src={URL.createObjectURL(image)}
                   />
                 </Box>
