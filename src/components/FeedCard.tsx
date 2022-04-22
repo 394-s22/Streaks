@@ -31,6 +31,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
 }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgCaption, setImgCaption] = useState("");
+  const [profileColor, setProfileColor] = useState("purple")
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
@@ -66,7 +67,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
       <CardHeader
         avatar={
           <Avatar
-            sx={{ bgcolor: randomColor({ luminosity: "dark" }) }}
+            sx={{ bgcolor: profileColor }}
             aria-label="recipe"
           >
             {userInfo.name.charAt(0)}
