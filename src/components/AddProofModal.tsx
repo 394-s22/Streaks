@@ -93,7 +93,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
               justifyContent="center"
               flexDirection="column"
             >
-              <Typography variant="h3">Upload your proof</Typography>
+              <Typography variant="h3">Upload Your Proof</Typography>
               <TextField
                 id="standard-multiline-static"
                 label="Enter Proof Caption"
