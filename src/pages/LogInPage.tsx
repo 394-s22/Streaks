@@ -1,5 +1,5 @@
 import { Google } from "@mui/icons-material";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import { AppBar, Box, Button, Grid, Paper, Toolbar, Typography } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
@@ -66,43 +66,63 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
   };
 
   const loginCard = (
-    <Paper
-      elevation={3}
-      style={{
-        borderRadius: "10px",
-        maxWidth: "400px",
-        margin: "auto",
-        textAlign: "center",
-        top: "100px",
-        position: "relative",
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h4">Please sign in</Typography>
+    <>
+      <AppBar position="static" color="secondary">
+          <Toolbar variant="dense">
+            
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              width="100%"
+            >
+              <Typography variant="h6" color="inherit" component="div">
+                Streaks
+              </Typography>
+             
+            </Box>
+            
+          </Toolbar>
+        </AppBar>
+      <Paper
+        elevation={3}
+        style={{
+          borderRadius: "10px",
+          maxWidth: "400px",
+          margin: "auto",
+          textAlign: "center",
+          top: "100px",
+          position: "relative",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h4">Please sign in</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={handleLogin} color="secondary">
+              Sign in with <Google style={{ paddingLeft: "5px" }} />
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              onClick={async () => {
+                signOut(auth);
+              }}
+              style={{
+                marginBottom: "30px",
+                width: "155px",
+              }}
+              color="secondary"
+            >
+              Logout
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" onClick={handleLogin} color="secondary">
-            Sign in with <Google style={{ paddingLeft: "5px" }} />
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="outlined"
-            onClick={async () => {
-              signOut(auth);
-            }}
-            style={{
-              marginBottom: "30px",
-              width: "155px",
-            }}
-            color="secondary"
-          >
-            Logout
-          </Button>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </>
   );
 
   return <div>{loginCard}</div>;

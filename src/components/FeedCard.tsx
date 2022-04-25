@@ -9,10 +9,7 @@ import Typography from "@mui/material/Typography";
 import { UserInfo, GroupProgress } from "../lib/types";
 import { getImageUrl, getImageCaption } from "../utilities/firebaseStorage";
 import { useState, useEffect } from "react";
-import { Chip } from "@mui/material";
-import { setData } from "../utilities/firebase";
 import ReactionButton from "./ReactionButton";
-var randomColor = require("randomcolor");
 
 interface FeedCardProps {
   userInfo: UserInfo;
@@ -31,6 +28,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
 }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgCaption, setImgCaption] = useState("");
+  const [profileColor] = useState("purple")
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
@@ -66,7 +64,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
       <CardHeader
         avatar={
           <Avatar
-            sx={{ bgcolor: randomColor({ luminosity: "dark" }) }}
+            sx={{ bgcolor: profileColor }}
             aria-label="recipe"
           >
             {userInfo.name.charAt(0)}
