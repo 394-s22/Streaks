@@ -37,6 +37,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
             ) {
               return (
                 <FeedCard
+                  key={currUser.id}
                   userInfo={currUser}
                   currentDate={currentDate}
                   groupId={group.groupId}
@@ -45,6 +46,8 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
                 />
               );
             }
+
+            return <div key={currUser.id}></div>;
           })}
         </Box>
       </Box>
