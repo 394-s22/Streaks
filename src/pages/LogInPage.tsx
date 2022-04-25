@@ -3,7 +3,7 @@ import { Button, Grid, Paper, Typography } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
