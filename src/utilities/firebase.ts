@@ -18,8 +18,9 @@ const firebase = initializeApp(firebaseConfig);
 export const auth = getAuth(firebase);
 export const database = getDatabase(firebase);
 
-
-export const useData = (path: string) => {
+export function useData<T>(
+  path: string
+): [T | undefined, boolean, string | null] {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -52,7 +53,7 @@ export const useData = (path: string) => {
   }, [path]);
 
   return [data, loading, error];
-};
+}
 
 export const setData = (path: string, value: any) =>
   set(ref(database, path), value);

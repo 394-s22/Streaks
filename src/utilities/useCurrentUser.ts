@@ -1,13 +1,15 @@
-
-import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { child, get, ref } from "firebase/database";
-import { auth, database, useData } from "../utilities/firebase";
+import { useEffect, useState } from "react";
+import { UserInfo } from "../lib/types";
+import { auth, useData } from "../utilities/firebase";
 
-export const useCurrentUser = () => {
+export const useCurrentUser = (): {
+  user: UserInfo | undefined;
+  loading: boolean;
+} => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
-  const [user, setUser] = useData(`users/${userId}`);
+  const [user] = useData<UserInfo>(`users/${userId}`);
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, async (user) => {
@@ -23,6 +25,6 @@ export const useCurrentUser = () => {
       unsubscribed();
     };
   }, []);
+
   return { user, loading };
 };
-

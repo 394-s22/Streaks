@@ -8,13 +8,9 @@ import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
 
-interface LogInPageProps {
-  currentUser: string;
-}
+interface LogInPageProps {}
 
-const LogInPage: React.FunctionComponent<LogInPageProps> = ({
-  currentUser,
-}) => {
+const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
   const { user, loading } = useCurrentUser();
 
   let navigate = useNavigate();

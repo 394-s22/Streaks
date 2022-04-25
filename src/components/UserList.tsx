@@ -1,13 +1,13 @@
 import { Box, IconButton } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import React from "react";
-import { Group, GroupMetaData, User } from "../lib/types";
+import { Group, GroupMetaData, AllUsers } from "../lib/types";
 import UserCard from "./UserCard";
 
 interface UserListProps {
   group: GroupMetaData;
 
-  users: User;
+  users: AllUsers;
   currentUser: string;
   date: string;
 }
