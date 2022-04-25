@@ -28,7 +28,7 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
 }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgCaption, setImgCaption] = useState("");
-  const [profileColor] = useState("purple")
+  const [profileColor] = useState("purple");
 
   function getImgUrl() {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
@@ -55,18 +55,14 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
     <Card
       sx={{
         width: "100%",
-        minWidth: 400,
-        maxWidth: 700,
-        margin: 4,
+        maxWidth: 400,
+        marginBottom: "20px",
         height: "fit-content",
       }}
     >
       <CardHeader
         avatar={
-          <Avatar
-            sx={{ bgcolor: profileColor }}
-            aria-label="recipe"
-          >
+          <Avatar sx={{ bgcolor: profileColor }} aria-label="recipe">
             {userInfo.name.charAt(0)}
           </Avatar>
         }
