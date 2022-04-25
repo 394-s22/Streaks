@@ -43,19 +43,26 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
         avatarUrl: result.user.photoURL,
         id: result.user.uid,
       });
+
+      const coolRunnersGroupMemberIdsRef = child(
+        ref(database),
+        `groups/${COOL_RUNNERS_GROUP_ID}/memberIds`
+      );
+
+      const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
+
+      await set(coolRunnersGroupMemberIdsRef, [
+        ...(coolRunnersGroupMemberIds.val() ?? []),
+        result.user.uid,
+      ]);
+
+      const streaksRef = child(
+        ref(database),
+        `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`
+      );
+
+      await set(streaksRef, 0);
     }
-
-    const coolRunnersGroupMemberIdsRef = child(
-      ref(database),
-      `groups/${COOL_RUNNERS_GROUP_ID}/memberIds`
-    );
-
-    const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
-
-    await set(coolRunnersGroupMemberIdsRef, [
-      ...(coolRunnersGroupMemberIds.val() ?? []),
-      result.user.uid,
-    ]);
   };
 
   const loginCard = (
