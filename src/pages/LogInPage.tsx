@@ -3,17 +3,14 @@ import { AppBar, Box, Button, Grid, Paper, Toolbar, Typography } from "@mui/mate
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
+import { setData } from "../utilities/firebase";
+interface LogInPageProps {}
 
-interface LogInPageProps {
-  currentUser: string;
-}
-
-const LogInPage: React.FunctionComponent<LogInPageProps> = ({
-  currentUser,
-}) => {
+const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
   const { user, loading } = useCurrentUser();
 
   let navigate = useNavigate();
@@ -42,6 +39,30 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = ({
         avatarUrl: result.user.photoURL,
         id: result.user.uid,
       });
+
+      const coolRunnersGroupMemberIdsRef = child(
+        ref(database),
+        `groups/${COOL_RUNNERS_GROUP_ID}/memberIds`
+      );
+
+      const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
+
+      // await set(coolRunnersGroupMemberIdsRef, [
+      //   ...(coolRunnersGroupMemberIds.val() ?? []),
+      //   result.user.uid,
+      // ]);
+
+      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/memberIds`, [
+        ...(coolRunnersGroupMemberIds.val() ?? []),
+        result.user.uid,
+      ]);
+      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`, 0);
+      // const streaksRef = child(
+      //   ref(database),
+      //   `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`
+      // );
+      
+      // await set(streaksRef, 0);
     }
   };
 

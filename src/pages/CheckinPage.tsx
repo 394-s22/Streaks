@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Button, AppBar, Toolbar, Paper } from "@mui/material";
@@ -14,29 +13,29 @@ import FeedPage from "./FeedPage";
 import { signOut } from "firebase/auth";
 import { auth } from "../utilities/firebase";
 import { useNavigate } from "react-router-dom";
+import { GroupMetaData, AllUsers } from "../lib/types";
+import { useCurrentUser } from "../utilities/useCurrentUser";
 
 interface CheckinPageProps {
   currentGroup: string;
   date: string;
-  currentUser: string;
 }
 
 const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   currentGroup,
   date,
-  currentUser,
 }) => {
   const [open, setOpen] = useState(false);
   const [proofOpen, setProofOpen] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
 
-  const [data, loading, error] = useData("/groups/" + currentGroup);
-  const [usersData, userLoading, userError] = useData("/users");
+  const [data, loading, error] = useData<GroupMetaData>(
+    "/groups/" + currentGroup
+  );
+  const [usersData, userLoading, userError] = useData<AllUsers>("/users");
+  const { user: currentUser } = useCurrentUser();
 
   let navigate = useNavigate();
-
-  if (1 != 1) {
-  }
 
   // Adds the current date to database (with an array with just an empty string)
   const addNewDate = async () => {
@@ -53,6 +52,10 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   } else if (userError) {
     return <p>{userError}</p>;
   } else {
+    if (!data || !currentUser || !usersData) {
+      return <p>Loading...</p>;
+    }
+
     // adds the current date to the database if it doesn't exist
     if (!data.progress[date]) {
       addNewDate();
@@ -61,42 +64,43 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     const updateProgress = async () => {
       let new_list = data.progress[date].userIdsWhoCheckedIn;
       console.log(new_list);
-      new_list.push(currentUser);
+      new_list.push(currentUser.id);
       let temp_arr = [""];
       await setData(
         `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
         new_list
       ).catch((e) => alert(e));
       await setData(
-        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Like`,
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser.id}/Like`,
         temp_arr
       ).catch((e) => alert(e));
       await setData(
-        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Fire`,
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser.id}/Fire`,
         temp_arr
       ).catch((e) => alert(e));
       await setData(
-        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser}/Wow`,
+        `/groups/${currentGroup}/progress/${date}/userReactions/${currentUser.id}/Wow`,
         temp_arr
       ).catch((e) => alert(e));
       await setData(
-        `/groups/${currentGroup}/streaks/${currentUser}`,
-        data.streaks[currentUser] + 1
+        `/groups/${currentGroup}/streaks/${currentUser.id}`,
+        data.streaks[currentUser.id] + 1
       ).catch((e) => alert(e));
     };
     const updatePayout = async () => {
       let newPayout =
-        usersData[currentUser].groupInfo[currentGroup].payout +
-        usersData[currentUser].groupInfo[data.groupId].deposit / data.duration;
+        usersData[currentUser.id].groupInfo[currentGroup].payout +
+        usersData[currentUser.id].groupInfo[data.groupId].deposit /
+          data.duration;
       await setData(
-        `/users/${currentUser}/groupInfo/${currentGroup}/payout`,
+        `/users/${currentUser.id}/groupInfo/${currentGroup}/payout`,
         newPayout
       ).catch((e) => alert(e));
     };
 
     const handleCheckIn = () => {
       updateProgress();
-      updatePayout();
+      // updatePayout();
     };
 
     const handleOpen = () => {
@@ -114,34 +118,34 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     };
 
     // removes check in and reduces streak
-    const handleUndoCheckIn = async () => {
-      let new_list = data.progress[date].userIdsWhoCheckedIn;
-      new_list.pop();
-      await setData(
-        `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
-        new_list
-      ).catch((e) => alert(e));
-      await setData(
-        `/groups/${currentGroup}/streaks/${currentUser}`,
-        data.streaks[currentUser] - 1
-      ).catch((e) => alert(e));
-      // reset all likes
-      for (const user in data.progress[date].userReactions) {
-        let temp_arr = [""];
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Like`,
-          temp_arr
-        ).catch((e) => alert(e));
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Fire`,
-          temp_arr
-        ).catch((e) => alert(e));
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Wow`,
-          temp_arr
-        ).catch((e) => alert(e));
-      }
-    };
+    // const handleUndoCheckIn = async () => {
+    //   let new_list = data.progress[date].userIdsWhoCheckedIn;
+    //   new_list.pop();
+    //   await setData(
+    //     `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
+    //     new_list
+    //   ).catch((e) => alert(e));
+    //   await setData(
+    //     `/groups/${currentGroup}/streaks/${currentUser.id}`,
+    //     data.streaks[currentUser.id] - 1
+    //   ).catch((e) => alert(e));
+    //   // reset all likes
+    //   for (const user in data.progress[date].userReactions) {
+    //     let temp_arr = [""];
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Like`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Fire`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Wow`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //   }
+    // };
 
     return (
       <Box>
@@ -187,7 +191,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             justifyContent="space-between"
             flexDirection="column"
             height="100%"
-            paddingBottom={6}
+            paddingBottom={8}
           >
             <Box>
               <Typography
@@ -222,19 +226,18 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
                 isOpen={proofOpen}
                 handleCheckIn={handleCheckIn}
                 currentDate={date}
-                currentUser={currentUser}
                 currentGroup={currentGroup}
               />
               <UserList
                 group={data}
                 users={usersData}
-                currentUser={currentUser}
+                currentUser={currentUser.id}
                 date={date}
               />
               {!data.progress[date] ? (
                 <></>
               ) : !data.progress[date].userIdsWhoCheckedIn.includes(
-                  currentUser
+                  currentUser.id
                 ) ? (
                 <Button
                   variant="contained"
@@ -247,9 +250,9 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               ) : (
                 <>
                   <Typography>You have checked in today 🙌</Typography>
-                  <Button onClick={() => handleUndoCheckIn()}>
+                  {/* <Button onClick={() => handleUndoCheckIn()}>
                     Undo Check In
-                  </Button>
+                  </Button> */}
                   {/* <Typography>
                     {" "}
                     $
@@ -265,10 +268,10 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
           </Box>
         ) : (
           <FeedPage
-            userData={usersData}
+            userData={Object.values(usersData)}
             currentDate={date}
             group={data}
-            currentUser={currentUser}
+            currentUser={currentUser.id}
           />
         )}
         <Paper

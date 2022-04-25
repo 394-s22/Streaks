@@ -3,12 +3,12 @@ import Modal from "@mui/material/Modal";
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import { uploadImage } from "../utilities/firebaseStorage";
+import { useCurrentUser } from "../utilities/useCurrentUser";
 
 interface InfoModalProps {
   handleClose: () => void;
   isOpen: boolean;
   currentDate: string;
-  currentUser: string;
   handleCheckIn: () => void;
   currentGroup: string;
 }
@@ -17,13 +17,13 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
   handleClose,
   isOpen,
   currentDate,
-  currentUser,
   handleCheckIn,
   currentGroup,
 }) => {
   const [imageUploaded, setImageUploaded] = useState(false);
   const [image, setImage] = useState(null);
   const [imgCaption, setCaption] = useState("");
+  const { user: currentUser } = useCurrentUser();
 
   // SOURCE: https://stackoverflow.com/questions/43992427/how-to-display-a-image-selected-from-input-type-file-in-reactjs
   const onImageChange = (event: any) => {
@@ -40,8 +40,13 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
   };
 
   const completeCheckInPhase = () => {
+    if (!currentUser) {
+      alert("Please sign in to complete check-in");
+      return;
+    }
+
     if (image != null) {
-      uploadImage(image, currentUser, currentDate, currentGroup, imgCaption);
+      uploadImage(image, currentUser.id, currentDate, currentGroup, imgCaption);
       handleClose();
       handleCheckIn();
     }

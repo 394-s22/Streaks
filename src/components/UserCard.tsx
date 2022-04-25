@@ -3,7 +3,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { IconButton, Typography, Icon, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import React, { useState, useEffect } from "react";
-import { Group, GroupMetaData, User, UserInfo } from "../lib/types";
+import { Group, GroupMetaData, AllUsers, UserInfo } from "../lib/types";
 import ChatIcon from "@mui/icons-material/Chat";
 import { getImageUrl } from "../utilities/firebaseStorage";
 

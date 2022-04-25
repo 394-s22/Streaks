@@ -26,7 +26,7 @@ type Reactions = {
   Wow: string[];
 };
 
-export type User = Record<string, UserInfo>;
+export type AllUsers = Record<string, UserInfo>;
 
 export type UserInfo = {
   cellphoneNumber: string;

@@ -11,7 +11,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const App: React.FunctionComponent = () => {
   const currGroup = "0";
-  const currUser = "2";
 
   // Current date in the form YYYY-MM-DD
   const date = new Date().toISOString().substring(0, 10);
@@ -25,16 +24,10 @@ const App: React.FunctionComponent = () => {
 
           <Route
             path="/checkin"
-            element={
-              <CheckinPage
-                currentGroup={currGroup}
-                currentUser={currUser}
-                date={date}
-              />
-            }
+            element={<CheckinPage currentGroup={currGroup} date={date} />}
           />
 
-          <Route path="/" element={<LogInPage currentUser={currUser} />} />
+          <Route path="/" element={<LogInPage />} />
 
           <Route path="/creategroup" element={<GroupCreationPage />} />
         </Routes>
