@@ -118,34 +118,34 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     };
 
     // removes check in and reduces streak
-    const handleUndoCheckIn = async () => {
-      let new_list = data.progress[date].userIdsWhoCheckedIn;
-      new_list.pop();
-      await setData(
-        `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
-        new_list
-      ).catch((e) => alert(e));
-      await setData(
-        `/groups/${currentGroup}/streaks/${currentUser.id}`,
-        data.streaks[currentUser.id] - 1
-      ).catch((e) => alert(e));
-      // reset all likes
-      for (const user in data.progress[date].userReactions) {
-        let temp_arr = [""];
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Like`,
-          temp_arr
-        ).catch((e) => alert(e));
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Fire`,
-          temp_arr
-        ).catch((e) => alert(e));
-        await setData(
-          `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Wow`,
-          temp_arr
-        ).catch((e) => alert(e));
-      }
-    };
+    // const handleUndoCheckIn = async () => {
+    //   let new_list = data.progress[date].userIdsWhoCheckedIn;
+    //   new_list.pop();
+    //   await setData(
+    //     `/groups/${currentGroup}/progress/${date}/userIdsWhoCheckedIn`,
+    //     new_list
+    //   ).catch((e) => alert(e));
+    //   await setData(
+    //     `/groups/${currentGroup}/streaks/${currentUser.id}`,
+    //     data.streaks[currentUser.id] - 1
+    //   ).catch((e) => alert(e));
+    //   // reset all likes
+    //   for (const user in data.progress[date].userReactions) {
+    //     let temp_arr = [""];
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Like`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Fire`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //     await setData(
+    //       `/groups/${currentGroup}/progress/${date}/userReactions/${user}/Wow`,
+    //       temp_arr
+    //     ).catch((e) => alert(e));
+    //   }
+    // };
 
     return (
       <Box>
@@ -250,9 +250,9 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
               ) : (
                 <>
                   <Typography>You have checked in today 🙌</Typography>
-                  <Button onClick={() => handleUndoCheckIn()}>
+                  {/* <Button onClick={() => handleUndoCheckIn()}>
                     Undo Check In
-                  </Button>
+                  </Button> */}
                   {/* <Typography>
                     {" "}
                     $
