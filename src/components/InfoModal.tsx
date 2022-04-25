@@ -69,14 +69,6 @@ const InfoModal: React.FunctionComponent<InfoModalProps> = ({
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    Pay-in amount
-                  </TableCell>
-                  <TableCell align="right">${group.payInAmt}</TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
                     Start Date
                   </TableCell>
                   <TableCell align="right">{group.startDate}</TableCell>
