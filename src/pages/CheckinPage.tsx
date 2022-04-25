@@ -54,7 +54,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
   }
 
   return (
-    <Box>
+    <Box paddingBottom="50px">
       <AppBar position="static" color="secondary">
         <Toolbar variant="dense">
           <Box
