@@ -17,6 +17,7 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
   date,
 }) => {
   const [open, setOpen] = useState(false);
+  const [infoModelOpen, setInfoModelOpen] = useState(false);
   const { currentUser } = useCurrentUser();
   const [usersData] = useData<AllUsers>("/users");
 
@@ -89,13 +90,13 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
           {groupInfo.habit}
         </Typography>
 
-        <Button onClick={() => setOpen(true)} color="secondary">
+        <Button onClick={() => setInfoModelOpen(true)} color="secondary">
           Info
         </Button>
 
         <InfoModal
-          handleClose={() => setOpen(false)}
-          isOpen={open}
+          handleClose={() => setInfoModelOpen(false)}
+          isOpen={infoModelOpen}
           group={groupInfo}
         />
 

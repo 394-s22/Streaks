@@ -19,6 +19,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
   if (group.progress[currentDate].userIdsWhoCheckedIn.length === 1) {
     return <h3>No one has checked in today.</h3>;
   }
+
   return (
     <Box
       margin={5}
