@@ -69,7 +69,7 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
       justifyContent="space-between"
       flexDirection="column"
       height="100%"
-      paddingBottom={8}
+      paddingBottom={10}
     >
       <Box>
         <Typography
@@ -127,7 +127,7 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
             Check In
           </Button>
         ) : (
-          <Typography>You have checked in today 🙌</Typography>
+          <Typography marginTop={5}>You have checked in today 🙌</Typography>
         )}
       </Box>
     </Box>
