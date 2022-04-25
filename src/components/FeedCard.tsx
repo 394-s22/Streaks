@@ -30,26 +30,19 @@ const FeedCard: React.FunctionComponent<FeedCardProps> = ({
   const [imgCaption, setImgCaption] = useState("");
   const [profileColor] = useState("purple");
 
-  function getImgUrl() {
+  useEffect(() => {
     getImageUrl(userInfo.id, currentDate, groupId).then((data) => {
       setImgUrl(data);
     });
-  }
-  function getImgCaption() {
+  }, [currentDate, groupId, userInfo.id]);
+
+  useEffect(() => {
     getImageCaption(userInfo.id, currentDate, groupId).then((data) => {
       if (data.customMetadata) {
         setImgCaption(data.customMetadata.imgCaption);
       }
     });
-  }
-
-  useEffect(() => {
-    getImgUrl();
-  }, [imgUrl]);
-
-  useEffect(() => {
-    getImgCaption();
-  }, [imgCaption]);
+  }, [currentDate, groupId, userInfo.id]);
 
   return (
     <Card
