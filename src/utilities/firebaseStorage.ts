@@ -1,4 +1,10 @@
-import { getStorage, ref, uploadBytes, getDownloadURL, getMetadata } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  getMetadata,
+} from "firebase/storage";
 
 // 'file' comes from the Blob or File API
 export const uploadImage = (
@@ -17,13 +23,10 @@ export const uploadImage = (
     contentType: "image/jpeg",
     public: true,
     customMetadata: {
-      imgCaption: caption
-    }
+      imgCaption: caption,
+    },
   };
-  console.log("test");
-  uploadBytes(storageRef, image, metadata).then((snapshot) => {
-    console.log("Uploaded a blob or file!", snapshot);
-  });
+  return uploadBytes(storageRef, image, metadata);
 };
 
 export const getImageUrl = (

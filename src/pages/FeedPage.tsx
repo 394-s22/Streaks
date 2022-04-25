@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import FeedCard from "../components/FeedCard";
 import { GroupMetaData, UserInfo } from "../lib/types";
@@ -19,6 +19,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
   if (group.progress[currentDate].userIdsWhoCheckedIn.length === 1) {
     return <h3>No one has checked in today.</h3>;
   }
+
   return (
     <Box
       margin={5}
@@ -26,6 +27,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
       justifyContent="center"
       alignItems="center"
       marginBottom="100px"
+      paddingBottom={10}
     >
       <Box maxWidth={1600}>
         <Box width="100%">
@@ -37,6 +39,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
             ) {
               return (
                 <FeedCard
+                  key={currUser.id}
                   userInfo={currUser}
                   currentDate={currentDate}
                   groupId={group.groupId}
@@ -45,6 +48,8 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
                 />
               );
             }
+
+            return <div key={currUser.id}></div>;
           })}
         </Box>
       </Box>

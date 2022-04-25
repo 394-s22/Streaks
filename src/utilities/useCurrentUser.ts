@@ -4,12 +4,12 @@ import { UserInfo } from "../lib/types";
 import { auth, useData } from "../utilities/firebase";
 
 export const useCurrentUser = (): {
-  user: UserInfo | undefined;
+  currentUser: UserInfo | undefined;
   loading: boolean;
 } => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
-  const [user] = useData<UserInfo>(`users/${userId}`);
+  const [currentUser] = useData<UserInfo>(`users/${userId}`);
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, async (user) => {
@@ -26,5 +26,5 @@ export const useCurrentUser = (): {
     };
   }, []);
 
-  return { user, loading };
+  return { currentUser, loading };
 };

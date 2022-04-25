@@ -23,7 +23,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
   const [imageUploaded, setImageUploaded] = useState(false);
   const [image, setImage] = useState(null);
   const [imgCaption, setCaption] = useState("");
-  const { user: currentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   // SOURCE: https://stackoverflow.com/questions/43992427/how-to-display-a-image-selected-from-input-type-file-in-reactjs
   const onImageChange = (event: any) => {
@@ -113,7 +113,9 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Typography fontSize="1.25rem" color="#444">No image has been uploaded yet...</Typography>
+                  <Typography fontSize="1.25rem" color="#444">
+                    No image has been uploaded yet...
+                  </Typography>
                 </Box>
               )}
               <TextField
@@ -130,30 +132,36 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                 justifyContent="space-between"
                 width="100%"
               >
-              <Button variant="contained" component="label" style={{minWidth:"49%"}}>
-                Upload Image
-                <input
-                  id="pictureInput"
-                  type="file"
-                  hidden
-                  accept=".png,.jpeg,.jpg"
-                  onChange={onImageChange}
+                <Button
+                  variant="contained"
+                  component="label"
+                  style={{ minWidth: "49%" }}
+                >
+                  Upload Image
+                  <input
+                    id="pictureInput"
+                    type="file"
+                    hidden
+                    accept=".png,.jpeg,.jpg"
+                    onChange={onImageChange}
+                  />
+                </Button>
 
-                />
-              </Button>
-
-              <Button
-                variant="contained"
-                disabled={!imageUploaded}
-                sx={{ minWidth: "49%"}}
-                onClick={completeCheckInPhase}
-                color="success"
-              >
-                Check In
-              </Button>
-
+                <Button
+                  variant="contained"
+                  disabled={!imageUploaded}
+                  sx={{ minWidth: "49%" }}
+                  onClick={completeCheckInPhase}
+                  color="success"
+                >
+                  Check In
+                </Button>
               </Box>
-              <Button variant="outlined" onClick={handleClose} sx={{ mt: "0.5rem" }}>
+              <Button
+                variant="outlined"
+                onClick={handleClose}
+                sx={{ mt: "0.5rem" }}
+              >
                 Close
               </Button>
             </Box>

@@ -1,5 +1,13 @@
 import { Google } from "@mui/icons-material";
-import { AppBar, Box, Button, Grid, Paper, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
 import React from "react";
@@ -11,11 +19,11 @@ import { setData } from "../utilities/firebase";
 interface LogInPageProps {}
 
 const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
-  const { user, loading } = useCurrentUser();
+  const { currentUser, loading } = useCurrentUser();
 
   let navigate = useNavigate();
 
-  if (user) {
+  if (currentUser) {
     navigate("/checkin");
   }
 
@@ -47,45 +55,30 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
 
       // const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
 
-      // await set(coolRunnersGroupMemberIdsRef, [
-      //   ...(coolRunnersGroupMemberIds.val() ?? []),
-      //   result.user.uid,
-      // ]);
-
-      // await setData(`groups/${COOL_RUNNERS_GROUP_ID}/memberIds`, [
-      //   ...(coolRunnersGroupMemberIds.val() ?? []),
-      //   result.user.uid,
-      // ]);
-      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`, 0);
-      // const streaksRef = child(
-      //   ref(database),
-      //   `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`
-      // );
-      
-      // await set(streaksRef, 0);
+      await setData(
+        `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`,
+        0
+      );
     }
   };
 
   const loginCard = (
     <>
       <AppBar position="static" color="secondary">
-          <Toolbar variant="dense">
-            
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-            >
-              <Typography variant="h6" color="inherit" component="div">
-                Streaks
-              </Typography>
-             
-            </Box>
-            
-          </Toolbar>
-        </AppBar>
+        <Toolbar variant="dense">
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+          >
+            <Typography variant="h6" color="inherit" component="div">
+              Streaks
+            </Typography>
+          </Box>
+        </Toolbar>
+      </AppBar>
       <Paper
         elevation={3}
         style={{
