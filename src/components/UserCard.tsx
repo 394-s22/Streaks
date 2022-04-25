@@ -79,7 +79,7 @@ const UserCard: React.FunctionComponent<UserCardProps> = ({
               ) : progress[date].userIdsWhoCheckedIn.includes(user.id) ? (
                 <CheckCircleIcon color="success" sx={{ ml: 1, fontSize: 20 }} />
               ) : (
-                <RadioButtonUncheckedIcon sx={{ ml: 1, fontSize: 20 }} />
+                <></>
               )}
             </Typography>
             <Typography>
