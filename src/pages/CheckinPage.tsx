@@ -100,7 +100,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
 
     const handleCheckIn = () => {
       updateProgress();
-      updatePayout();
+      // updatePayout();
     };
 
     const handleOpen = () => {

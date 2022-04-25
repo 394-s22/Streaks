@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";
 import { auth, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
-
+import { setData } from "../utilities/firebase";
 interface LogInPageProps {}
 
 const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
@@ -47,17 +47,22 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
 
       const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
 
-      await set(coolRunnersGroupMemberIdsRef, [
+      // await set(coolRunnersGroupMemberIdsRef, [
+      //   ...(coolRunnersGroupMemberIds.val() ?? []),
+      //   result.user.uid,
+      // ]);
+
+      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/memberIds`, [
         ...(coolRunnersGroupMemberIds.val() ?? []),
         result.user.uid,
       ]);
-
-      const streaksRef = child(
-        ref(database),
-        `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`
-      );
-
-      await set(streaksRef, 0);
+      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`, 0);
+      // const streaksRef = child(
+      //   ref(database),
+      //   `groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`
+      // );
+      
+      // await set(streaksRef, 0);
     }
   };
 
