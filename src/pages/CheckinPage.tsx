@@ -148,7 +148,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
     // };
 
     return (
-      <Box>
+      <Box paddingBottom="50px">
         <AppBar position="static" color="secondary">
           <Toolbar variant="dense">
             {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
@@ -191,7 +191,6 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             justifyContent="space-between"
             flexDirection="column"
             height="100%"
-            paddingBottom={8}
           >
             <Box>
               <Typography
