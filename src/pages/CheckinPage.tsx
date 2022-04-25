@@ -191,7 +191,7 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             justifyContent="space-between"
             flexDirection="column"
             height="100%"
-            paddingBottom={6}
+            paddingBottom={8}
           >
             <Box>
               <Typography
