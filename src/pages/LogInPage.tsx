@@ -40,22 +40,22 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
         id: result.user.uid,
       });
 
-      const coolRunnersGroupMemberIdsRef = child(
-        ref(database),
-        `groups/${COOL_RUNNERS_GROUP_ID}/memberIds`
-      );
+      // const coolRunnersGroupMemberIdsRef = child(
+      //   ref(database),
+      //   `groups/${COOL_RUNNERS_GROUP_ID}/memberIds`
+      // );
 
-      const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
+      // const coolRunnersGroupMemberIds = await get(coolRunnersGroupMemberIdsRef);
 
       // await set(coolRunnersGroupMemberIdsRef, [
       //   ...(coolRunnersGroupMemberIds.val() ?? []),
       //   result.user.uid,
       // ]);
 
-      await setData(`groups/${COOL_RUNNERS_GROUP_ID}/memberIds`, [
-        ...(coolRunnersGroupMemberIds.val() ?? []),
-        result.user.uid,
-      ]);
+      // await setData(`groups/${COOL_RUNNERS_GROUP_ID}/memberIds`, [
+      //   ...(coolRunnersGroupMemberIds.val() ?? []),
+      //   result.user.uid,
+      // ]);
       await setData(`groups/${COOL_RUNNERS_GROUP_ID}/streaks/${result.user.uid}`, 0);
       // const streaksRef = child(
       //   ref(database),
