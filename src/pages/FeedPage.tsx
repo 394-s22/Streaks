@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import FeedCard from "../components/FeedCard";
 import { GroupMetaData, UserInfo } from "../lib/types";
@@ -26,6 +26,7 @@ const FeedPage: React.FunctionComponent<FeedPageProps> = ({
       justifyContent="center"
       alignItems="center"
       marginBottom="100px"
+      paddingBottom={10}
     >
       <Box maxWidth={1600}>
         <Box width="100%">
