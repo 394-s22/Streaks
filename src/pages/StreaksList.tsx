@@ -80,13 +80,13 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
         >
           Group Name:
         </Typography>
-        <Typography variant="h2" gutterBottom component="div" lineHeight={1}>
+        <Typography variant="h2" gutterBottom component="h2" lineHeight={1}>
           {groupInfo.groupName}
         </Typography>
         <Typography variant="overline" display="block">
           Daily Habit:
         </Typography>
-        <Typography variant="h4" gutterBottom component="div">
+        <Typography variant="h4" gutterBottom component="h3">
           {groupInfo.habit}
         </Typography>
 

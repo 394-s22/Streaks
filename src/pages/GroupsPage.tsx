@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
 import { Group, UserInfo } from "../lib/types";
 import { useData, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
@@ -13,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { group } from "console";
+import SignOutButton from "../components/SignOutButton";
 
 interface GroupsPageProps {
   currentUser: string;
@@ -22,7 +24,8 @@ const GroupsPage: React.FunctionComponent = () => {
   const { currentUser } = useCurrentUser();
   const [data, loading, error] = useData("users/" + "2");
   const [groupData, groupLoading, groupError] = useData<Group>("groups/");
-  console.log(data);
+
+  let navigate = useNavigate();
 
   if (!currentUser) {
     return <p></p>;
@@ -35,28 +38,35 @@ const GroupsPage: React.FunctionComponent = () => {
               display="flex"
               flexDirection="row"
               alignItems="center"
-              justifyContent="center"
+              justifyContent="space-between"
               width="100%"
             >
-              <Typography variant="h6" color="inherit" component="div">
+              <Typography variant="h6" color="inherit" component="h1">
                 Streaks
               </Typography>
+              <SignOutButton />
             </Box>
           </Toolbar>
         </AppBar>
 
-        <Box marginTop={"100px"} display={"flex"} justifyContent="center">
-          {groupData ? (
-            console.log(Object.values(groupData)[0])
-          ) : (
-            <p>IN HERE</p>
-          )}
+        <Box
+          marginTop={"100px"}
+          display={"flex"}
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
           {groupData ? (
             Object.values(groupData).map((group) => {
               return (
                 <Paper
                   elevation={3}
-                  style={{ borderRadius: "25px", width: "50%", padding:"3%"}}
+                  style={{
+                    borderRadius: "25px",
+                    width: "50%",
+                    padding: "3%",
+                    marginBottom: "20px",
+                  }}
                 >
                   <Typography variant="h4" color="inherit" component="div">
                     {group.groupName}
@@ -66,7 +76,9 @@ const GroupsPage: React.FunctionComponent = () => {
                     {group.description}
                   </Typography>
                   <Link to="/checkin" style={{ textDecoration: "none" }}>
-                    <Button color="secondary" variant="contained">Visit {group.groupName}</Button>
+                    <Button color="secondary" variant="contained">
+                      Visit {group.groupName}
+                    </Button>
                   </Link>
                 </Paper>
               );

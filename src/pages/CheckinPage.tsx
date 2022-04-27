@@ -1,17 +1,18 @@
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import RuleIcon from "@mui/icons-material/Rule";
-import { AppBar, Box, Button, Paper, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Paper, Toolbar, IconButton } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Typography from "@mui/material/Typography";
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AllUsers, GroupMetaData } from "../lib/types";
 import { auth, setData, useData } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
 import FeedPage from "./FeedPage";
 import StreaksList from "./StreaksList";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface CheckinPageProps {
   currentGroup: string;
@@ -64,7 +65,12 @@ const CheckinPage: React.FunctionComponent<CheckinPageProps> = ({
             justifyContent="space-between"
             width="100%"
           >
-            <Typography variant="h6" color="inherit" component="div">
+            <Typography variant="h6" color="inherit" component="h1">
+              <Link to="/groups">
+                <IconButton>
+                  <ArrowBackIcon sx={{ fill: "#fff" }} />
+                </IconButton>
+              </Link>
               Streaks
             </Typography>
             <Typography>

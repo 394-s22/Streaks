@@ -73,7 +73,7 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
             justifyContent="center"
             width="100%"
           >
-            <Typography variant="h6" color="inherit" component="div">
+            <Typography variant="h6" component="h1" color="inherit">
               Streaks
             </Typography>
           </Box>
@@ -95,23 +95,15 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
             <Typography variant="h4">Please sign in</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" onClick={handleLogin} color="secondary">
-              Sign in with <Google style={{ paddingLeft: "5px" }} />
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
             <Button
-              variant="outlined"
-              onClick={async () => {
-                signOut(auth);
-              }}
+              variant="contained"
+              onClick={handleLogin}
+              color="secondary"
               style={{
                 marginBottom: "30px",
-                width: "155px",
               }}
-              color="secondary"
             >
-              Logout
+              Sign in with <Google style={{ paddingLeft: "5px" }} />
             </Button>
           </Grid>
         </Grid>
