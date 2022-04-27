@@ -24,7 +24,7 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
   let navigate = useNavigate();
 
   if (currentUser) {
-    navigate("/checkin");
+    navigate("/groups");
   }
 
   if (loading) {

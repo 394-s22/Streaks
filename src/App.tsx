@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./pages/CheckinPage";
 import CheckinPage from "./pages/CheckinPage";
-
+import GroupsPage from "./pages/GroupsPage";
 import LogInPage from "./pages/LogInPage";
 import GroupCreationPage from "./pages/GroupCreationPage";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -25,6 +25,11 @@ const App: React.FunctionComponent = () => {
           <Route
             path="/checkin"
             element={<CheckinPage currentGroup={currGroup} date={date} />}
+          />
+
+          <Route
+            path="/groups"
+            element={<GroupsPage/>}
           />
 
           <Route path="/" element={<LogInPage />} />
