@@ -45,7 +45,7 @@ const GroupsPage: React.FunctionComponent = () => {
           </Toolbar>
         </AppBar>
 
-        <Box marginTop={"100px"}>
+        <Box marginTop={"100px"} display={"flex"} justifyContent="center">
           {groupData ? (
             console.log(Object.values(groupData)[0])
           ) : (
@@ -53,7 +53,23 @@ const GroupsPage: React.FunctionComponent = () => {
           )}
           {groupData ? (
             Object.values(groupData).map((group) => {
-              <Button>Hi there</Button>;
+              return (
+                <Paper
+                  elevation={3}
+                  style={{ borderRadius: "25px", width: "50%", padding:"3%"}}
+                >
+                  <Typography variant="h4" color="inherit" component="div">
+                    {group.groupName}
+                  </Typography>
+
+                  <Typography variant="caption" color="inherit" component="div">
+                    {group.description}
+                  </Typography>
+                  <Link to="/checkin" style={{ textDecoration: "none" }}>
+                    <Button color="secondary" variant="contained">Visit {group.groupName}</Button>
+                  </Link>
+                </Paper>
+              );
             })
           ) : (
             <p>IN HERE</p>
