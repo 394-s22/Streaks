@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { UserInfo } from "../lib/types";
+import { Group, UserInfo } from "../lib/types";
 import { useData, database } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
 import {
@@ -18,38 +18,51 @@ interface GroupsPageProps {
   currentUser: string;
 }
 
-
-
 const GroupsPage: React.FunctionComponent = () => {
   const { currentUser } = useCurrentUser();
   const [data, loading, error] = useData("users/" + "2");
-  const [groupData, groupLoading, groupError] = useData("groups/")
+  const [groupData, groupLoading, groupError] = useData<Group>("groups/");
   console.log(data);
 
-  return (
-    <>
-      <AppBar position="static" color="secondary">
-        <Toolbar variant="dense">
-          <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            width="100%"
-          >
-            <Typography variant="h6" color="inherit" component="div">
-              Streaks
-            </Typography>
-          </Box>
-        </Toolbar>
-      </AppBar>
+  if (!currentUser) {
+    return <p></p>;
+  } else {
+    return (
+      <>
+        <AppBar position="static" color="secondary">
+          <Toolbar variant="dense">
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              width="100%"
+            >
+              <Typography variant="h6" color="inherit" component="div">
+                Streaks
+              </Typography>
+            </Box>
+          </Toolbar>
+        </AppBar>
 
-      <Link to="/checkin">
-        {Object.values(groupData).map((group) => { <button> </button>})}
-       
-      </Link>
-    </>
-  );
+        <Box marginTop={"100px"}>
+          {groupData ? (
+            console.log(Object.values(groupData)[0])
+          ) : (
+            <p>IN HERE</p>
+          )}
+          {groupData ? (
+            Object.values(groupData).map((group) => {
+              <Button>Hi there</Button>;
+            })
+          ) : (
+            <p>IN HERE</p>
+          )}
+        </Box>
+        {/* <Link to="/checkin"></Link> */}
+      </>
+    );
+  }
 };
 
 export default GroupsPage;
