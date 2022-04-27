@@ -12,6 +12,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { group } from "console";
+
 interface GroupsPageProps {
   currentUser: string;
 }
@@ -21,6 +23,7 @@ interface GroupsPageProps {
 const GroupsPage: React.FunctionComponent = () => {
   const { currentUser } = useCurrentUser();
   const [data, loading, error] = useData("users/" + "2");
+  const [groupData, groupLoading, groupError] = useData("groups/")
   console.log(data);
 
   return (
@@ -42,7 +45,8 @@ const GroupsPage: React.FunctionComponent = () => {
       </AppBar>
 
       <Link to="/checkin">
-        <button>Group 1</button>
+        {Object.values(groupData).map((group) => { <button> </button>})}
+       
       </Link>
     </>
   );
