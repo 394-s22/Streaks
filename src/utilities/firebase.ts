@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, set, connectDatabaseEmulator } from "firebase/database";
 import { useState, useEffect } from "react";
+import { connectAuthEmulator, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -31,6 +32,12 @@ export function useData<T>(
       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
     if (devMode) {
       console.log(`loading ${path}`);
+      connectAuthEmulator(auth, "http://127.0.0.1:9099");
+      connectDatabaseEmulator(database, "127.0.0.1", 9000);
+      signInWithCredential(auth, GoogleAuthProvider.credential(
+        '{"sub": "SQd2GveBL76UInd4PQmk6HWmoIJK", "email": "jd@gmail.com", "displayName":"John Doe", "email_verified": true}'
+      ));
+
     }
 
     return onValue(

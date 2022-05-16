@@ -2,6 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { UserInfo } from "../lib/types";
 import { auth, useData } from "../utilities/firebase";
+import { connectAuthEmulator } from "firebase/auth";
 
 export const useCurrentUser = (): {
   currentUser: UserInfo | undefined;
