@@ -8,8 +8,20 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { child, get, ref, set } from "firebase/database";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  connectAuthEmulator,
+  signInWithCredential,
+} from "firebase/auth";
+import {
+  child,
+  get,
+  ref,
+  set,
+  connectDatabaseEmulator,
+} from "firebase/database";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";

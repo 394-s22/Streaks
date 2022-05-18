@@ -1,7 +1,12 @@
-10:48:55.706 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-10:48:55.942 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-10:49:45.228 [Thread-1] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
-10:49:45.267 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: cs394-streaks-default-rtdb
-10:49:45.287 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for cs394-streaks-default-rtdb
-10:49:45.290 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for cs394-streaks-default-rtdb
-10:49:45.300 [Thread-1] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/joshua/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+14:19:19.230 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+14:19:19.398 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+14:20:50.108 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+14:20:50.126 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: cs394-streaks-default-rtdb
+14:20:50.138 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for cs394-streaks-default-rtdb
+14:20:50.140 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for cs394-streaks-default-rtdb
+14:20:50.146 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

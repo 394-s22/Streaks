@@ -1,8 +1,18 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase, onValue, ref, set, connectDatabaseEmulator } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  set,
+  connectDatabaseEmulator,
+} from "firebase/database";
 import { useState, useEffect } from "react";
-import { connectAuthEmulator, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import {
+  connectAuthEmulator,
+  signInWithCredential,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -19,6 +29,18 @@ const firebase = initializeApp(firebaseConfig);
 export const auth = getAuth(firebase);
 export const database = getDatabase(firebase);
 
+const devMode = process.env.REACT_APP_EMULATE;
+if (devMode) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+  signInWithCredential(
+    auth,
+    GoogleAuthProvider.credential(
+      '{"sub": "SQd2GveBL76UInd4PQmk6HWmoIJK", "email": "jd@gmail.com", "displayName":"John Doe", "email_verified": true}'
+    )
+  );
+}
+
 export function useData<T>(
   path: string
 ): [T | undefined, boolean, string | null] {
@@ -30,15 +52,6 @@ export function useData<T>(
     const dbRef = ref(database, path);
     const devMode =
       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
-    if (devMode) {
-      console.log(`loading ${path}`);
-      connectAuthEmulator(auth, "http://127.0.0.1:9099");
-      connectDatabaseEmulator(database, "127.0.0.1", 9000);
-      signInWithCredential(auth, GoogleAuthProvider.credential(
-        '{"sub": "SQd2GveBL76UInd4PQmk6HWmoIJK", "email": "jd@gmail.com", "displayName":"John Doe", "email_verified": true}'
-      ));
-
-    }
 
     return onValue(
       dbRef,
