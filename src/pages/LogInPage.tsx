@@ -104,10 +104,11 @@ const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h4">Please sign in</Typography>
+            <Typography variant="h4" data-cy="signIn">Please sign in</Typography>
           </Grid>
           <Grid item xs={12}>
             <Button
+              data-cy="signInBtn"
               variant="contained"
               onClick={handleLogin}
               color="secondary"
