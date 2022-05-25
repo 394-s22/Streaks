@@ -48,7 +48,9 @@ const GroupsPage: React.FunctionComponent = () => {
             </Box>
           </Toolbar>
         </AppBar>
-
+        <span style={{ display: "none" }} aria-hidden="true">
+          Groups Page
+        </span>
         <Box
           marginTop={"100px"}
           display={"flex"}
