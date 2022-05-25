@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { child, get, ref, set } from "firebase/database";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { COOL_RUNNERS_GROUP_ID } from "../lib/constants";
 import { auth, database } from "../utilities/firebase";
@@ -21,11 +21,13 @@ interface LogInPageProps {}
 const LogInPage: React.FunctionComponent<LogInPageProps> = () => {
   const { currentUser, loading } = useCurrentUser();
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  if (currentUser) {
-    navigate("/groups");
-  }
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/groups");
+    }
+  }, [currentUser, navigate]);
 
   if (loading) {
     return <p>Loading...</p>;
