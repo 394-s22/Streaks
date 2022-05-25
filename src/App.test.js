@@ -11,7 +11,6 @@ test("renders learn react link", () => {
     loading: true,
   });
   render(<App />, { wrapper: MemoryRouter });
-  console.log(screen);
   const linkElement = screen.queryByText(/Loading/);
   expect(linkElement).toBeInTheDocument();
 });
