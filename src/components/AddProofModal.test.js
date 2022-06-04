@@ -3,7 +3,6 @@ import "@testing-library/jest-dom";
 import AddProofModal from "./AddProofModal";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 test("user cant submit until there is an image", async () => {
   // returning for groups
