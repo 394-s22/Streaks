@@ -1,8 +1,9 @@
-import { render, screen, debug } from "@testing-library/react";
+import { render, screen, debug, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AddProofModal from "./AddProofModal";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 test("user cant submit until there is an image", async () => {
   // returning for groups
@@ -18,9 +19,8 @@ test("user cant submit until there is an image", async () => {
     { wrapper: MemoryRouter }
   );
   // screen.debug();
-  const button = await screen.findByText(/Submit/i, {
+  const button = await screen.findByText(/Check In/i, {
     timeout: 3000,
   });
   expect(button).toBeDisabled();
-  // userEvent.click(button);
 });

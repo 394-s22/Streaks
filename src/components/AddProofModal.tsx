@@ -140,6 +140,7 @@ const AddProofModal: React.FunctionComponent<InfoModalProps> = ({
                   Upload Image
                   <input
                     id="pictureInput"
+                    data-testid="upload-file"
                     type="file"
                     hidden
                     accept=".png,.jpeg,.jpg"
