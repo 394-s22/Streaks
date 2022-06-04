@@ -13,14 +13,19 @@ test("clicking a reaction that you've liked before ", async () => {
         email: "test@gmail.com",
         groupInfo: null,
         name: "John Doe",
-        id: "10",
+        id: "abc",
       }}
       currentDate="2022-06-04"
       groupId="0"
-      progress={{ userIdsWhoCheckedIn: ["10"], userReactions: null }}
-      currentUser="10"
+      progress={{
+        userIdsWhoCheckedIn: ["11"],
+        userReactions: { abc: { Like: ["abc", "efg"] } },
+      }}
+      currentUser="efg"
       iconType="Like"
     />,
     { wrapper: MemoryRouter }
   );
+  const button = screen.getByText("x1");
+  expect(button).toBeInTheDocument();
 });
