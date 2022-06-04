@@ -18,9 +18,9 @@ test("user cant submit until there is an image", async () => {
     { wrapper: MemoryRouter }
   );
   // screen.debug();
-  const button = await screen.findByText(/Upload Your Proof/i, {
+  const button = await screen.findByText(/Submit/i, {
     timeout: 3000,
   });
-  expect(button).toBeInTheDocument();
+  expect(button).toBeDisabled();
   // userEvent.click(button);
 });
