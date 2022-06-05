@@ -6,6 +6,8 @@ import userEvent from "@testing-library/user-event";
 import { setData, useData } from "../utilities/firebase";
 
 jest.mock("../utilities/firebase");
+
+// Author: Joshua Hoffman
 test("clicking a reaction that you've liked before ", async () => {
   const blankFn = jest.fn();
   setData.mockReturnValue(Promise.resolve({ data: {} }));
