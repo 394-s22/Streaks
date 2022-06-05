@@ -15,6 +15,7 @@ test("renders learn react link", () => {
   expect(linkElement).toBeInTheDocument();
 });
 
+//Joshua Lee
 test("user is logged in", () => {
   useCurrentUser.mockReturnValue({
     currentUser: { name: "John" },
