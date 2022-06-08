@@ -604,6 +604,7 @@ test("user can click on a group", () => {
   expect(test).toBeInTheDocument();
 });
 
+// Fardeem
 test("Page navigation works", async () => {
   useCurrentUser.mockReturnValue({
     currentUser: { name: "John" },
