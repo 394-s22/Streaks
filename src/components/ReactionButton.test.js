@@ -40,3 +40,33 @@ test("clicking a reaction that you've liked before ", async () => {
     ["abc"]
   );
 });
+
+// Author: Mieraf Mulat
+test("clicking a reaction adds the user's reaction to post ", async () => {
+  const blankFn = jest.fn();
+  setData.mockReturnValue(Promise.resolve({ data: {} }));
+  render(
+    <ReactionButton
+      userInfo={{
+        id: "abc",
+      }}
+      currentDate="2022-06-04"
+      groupId="0"
+      progress={{
+        userIdsWhoCheckedIn: ["abc"],
+        userReactions: { abc: { Fire: ["abc"] } },
+      }}
+      currentUser="efg"
+      iconType="Fire"
+    />,
+    { wrapper: MemoryRouter }
+  );
+  const button = screen.getByText("x0");
+  expect(button).toBeInTheDocument();
+  userEvent.click(button);
+  await waitFor(() => expect(setData).toHaveBeenCalledTimes(1));
+  expect(setData).toHaveBeenCalledWith(
+    "/groups/0/progress/2022-06-04/userReactions/abc/Fire",
+    [ "abc", "efg"]
+  );
+});
