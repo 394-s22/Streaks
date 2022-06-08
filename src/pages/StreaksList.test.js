@@ -6,8 +6,8 @@ import { setData, useData } from "../utilities/firebase";
 import { useCurrentUser } from "../utilities/useCurrentUser";
 
 // Hello, I still cannot get my tests to work but I have already spent 7 hours on this
-// assignment and it is due tonight. I tried my hardest but got stuck on mocking the
-// useData function.
+// assignment over 3 days and it is due tonight. I tried my hardest but got stuck on 
+//mocking the useData function and have not found a solution.
 
 jest.mock("../utilities/useCurrentUser");
 jest.mock("../utilities/firebase.ts");
