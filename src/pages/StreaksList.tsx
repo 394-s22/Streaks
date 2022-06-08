@@ -123,6 +123,7 @@ const StreaksList: React.FunctionComponent<StreaksListProps> = ({
             color="secondary"
             onClick={() => setOpen(true)}
             sx={{ m: 3.75 }}
+            data-testid="ckInBtn"
           >
             Check In
           </Button>
