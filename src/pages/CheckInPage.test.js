@@ -9,8 +9,8 @@ import { AllUsers, GroupMetaData } from "../lib/types";
 jest.mock("../utilities/useCurrentUser");
 jest.mock("../utilities/firebase");
 const date = new Date().toISOString().substring(0, 10);
-
-test("user can click on a group", () => {
+// Author: Mieraf Mulat
+test("user can check in and get an upload form", () => {
     useCurrentUser.mockReturnValue({
       currentUser: { name: "Josh"},
       loading: false,
