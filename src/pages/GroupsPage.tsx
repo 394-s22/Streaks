@@ -24,8 +24,6 @@ const GroupsPage: React.FunctionComponent = () => {
   const { currentUser } = useCurrentUser();
   const [data, loading, error] = useData("users/" + "2");
   const [groupData, groupLoading, groupError] = useData<Group>("groups/");
-  console.log('Group is ', groupData)
-  console.log('data is ', data)
 
   let navigate = useNavigate();
 
