@@ -889,7 +889,6 @@ test("Page navigation works", async () => {
   ]);
 
   render(<App />, { wrapper: MemoryRouter });
-
   const btn = screen.getByRole("button", {
     name: "Visit Cool Runners",
   });

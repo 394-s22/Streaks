@@ -45,7 +45,6 @@ test("user can check in and get an upload form", () => {
      
      />,
      { wrapper: MemoryRouter });
-    
     const checkInBtn = screen.getByTestId("ckInBtn");
     fireEvent.click(checkInBtn);
     // screen.debug()
@@ -53,3 +52,44 @@ test("user can check in and get an upload form", () => {
     expect(form).toBeInTheDocument();
 
   })
+
+// Ben Miller (hard)
+test("check in button shows leaderboard", () => {
+  useCurrentUser.mockReturnValue({
+    currentUser: { name: "John"},
+    loading: false,
+  });
+  useData.mockReturnValue([{
+    "John": {name: "John"}, "Jane": {name: "Jane"} 
+}]);
+  render(
+    <CheckinPage
+    groupInfo={{
+      description: "A group to get better at running.",
+      duration: 30,
+      groupId: "0",
+      groupName: "Cool Runners",
+      groupPassword: "password_secret",
+      habit: "Run everyday",
+      progress: {
+        "2022-06-07": {
+            "userIdsWhoCheckedIn": [
+                "3"
+            ]
+        }}, 
+     streaks: {
+        "John": 10,
+        "Jane": 4
+        
+    }
+    }}
+ date={"2022-06-07"}
+    />,
+    { wrapper: MemoryRouter }
+  );
+  //debug();
+  const checkInButton = screen.getByText("Check In");
+  fireEvent.click(checkInButton);
+  expect(screen.getByText("Group Name:")).toBeInTheDocument();
+  expect(screen.getByText("Daily Habit:")).toBeInTheDocument();
+});
